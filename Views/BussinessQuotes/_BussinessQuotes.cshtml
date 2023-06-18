@@ -1,0 +1,637 @@
+﻿@model TemplateManagementSystem.Models.BussinessQuotesViewModel
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+
+    .form-control {
+        border: none;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="row" style="margin-top:0rem">
+            <div class="col-md-12">
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body-Templates">
+        <div class="row" style="margin-top:0rem">
+            <div class="col-md-12 col-lg-12">
+                @if (!string.IsNullOrEmpty(Convert.ToString(TempData["Message"])))
+                {
+                    if (Convert.ToString(TempData["Message"]).StartsWith("Success"))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Index", "bussinessQuotes", FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.Id)
+            @*<table style="width:100% !important;">
+                <tr>
+                    <td style="width:20%;padding-left:15px;"><b>Name</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Department</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Department, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Location</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>*@
+            <br />
+            @*<div class="row" style="margin-top:0rem">
+
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="profile-pic">
+                        <img src="~/pics/2.png" class="profile-pic-img"  style="border-radius:1rem"/>
+
+                    </div>
+                    <br />
+
+                    <div class="row" style="margin-top:0rem">
+                        <div class="col-md-3" style="padding-top:5px">
+                            <p>Date:</p>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(s => s.datetimestring, new { @class = "form-control", @type = "date" })
+
+                        </div>
+                        <br />
+                        <div class="col-md-3">
+
+                            <label class="form-label" style="padding-top:5px">Invoice Id:</label>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(s => s.InvoiceId, new { @class = "form-control sm", @type = "text" })
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>*@
+            <style>
+                .myrow {
+                }
+
+                    .myrow .mycol-md-4 {
+                        width: 30%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-6 {
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-8 {
+                        width: 66%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-3 {
+                        width: 25%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-9 {
+                        width: 75%;
+                        float: left;
+                    }
+
+                    .myrow::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+
+                .row1 {
+                }
+
+                    .row1 .col1 {
+                        float: left;
+                        width: 65%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col111 {
+                        float: left;
+                        width: 50%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col11 {
+                        float: left;
+                        width: 35%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col3 {
+                        float: left;
+                        width: 23%;
+                    }
+
+
+
+                    .row1::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+
+                #myc th td {
+                    border: none;
+                }
+            </style>
+            <div id="mstrong">
+                <table style="width:100% !important;" border="0" id="myc">
+                    <tr>
+                        <td width="15%">
+                            <div class="profile-pic">
+                                @if (Model.logo == null)
+                                {
+                                    <img src="~/assets/images/defaultimage.png" height="120" />
+                                }
+                                else
+                                {
+                                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" height="120" />
+                                }
+                                
+
+                            </div>
+                        </td>
+                        <td width="85%" style="background-color: #a8dcd8; border: none ">
+                            <style>
+                                #myhead {
+                                    color: white;
+                                }
+
+                                    #myhead tr td {
+                                        border: none;
+                                    }
+
+                                    #myhead textarea {
+                                        border: none;
+                                        background-color: #a8dcd8;
+                                        color: white;
+                                    }
+
+                                    #myhead input {
+                                        background-color: #a8dcd8;
+                                        color: white;
+                                    }
+                            </style>
+
+                            <table style="width:100% !important;" border="0" id="myhead">
+
+                                <tr>
+                                    <td style="border: 2px solid #a8dcd8" width="40%">
+                                        <label>Quote #</label>
+                                        <br />
+
+                                        @Html.TextAreaFor(s => s.quoteTxt, new { @class = "form-control", @id = "myd" })
+
+                                    </td>
+                                    <td style="border: 2px solid #a8dcd8">
+                                        <table style="width:100% !important;" border="0">
+
+                                            <tr>
+                                                <td style="border: 2px solid #a8dcd8; color: white">
+                                                    Issue Date
+                                                </td>
+                                                <td style="border: 2px solid #a8dcd8; color: white">
+                                                    @Html.TextBoxFor(s => s.issueDatestr, new { @class = "form-control", @type = "date" })
+
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+
+                                                <td style="border: 2px solid #a8dcd8; color: white">
+                                                    <br />
+
+                                                    Expiry Date
+                                                </td>
+                                                <td style="border: 2px solid #a8dcd8">
+                                                    <br />
+                                                    @Html.TextBoxFor(s => s.ExpiryDateStr, new { @class = "form-control", @type = "date" })
+
+                                                </td>
+
+
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+            <style>
+                #mydiv {
+                    border: none;
+                }
+
+                    #mydiv tr td {
+                        border: none;
+                    }
+            </style>
+            <div style="text-align:center">
+                <br />
+                <h2><b>Bussiness Quote</b></h2>
+
+            </div>
+            <table style="width:100% !important;" border="0" id="mydiv">
+                <tr>
+                </tr>
+                <tr>
+                    <td width="65%">
+                        <b>To</b>
+                        <br />
+                        @Html.TextBoxFor(s => s.Name, new { @class = "form-control", @type = "text", @placeholder = "Name" })
+                        <br />
+
+                        @Html.TextAreaFor(s => s.address1, new { @class = "form-control", @placeholder = "Address 1" })
+                        <br />
+
+                        @Html.TextAreaFor(s => s.address2, new { @class = "form-control", @placeholder = "Address 2" })
+                        <br />
+
+                        @Html.TextBoxFor(s => s.phone, new { @class = "form-control", @type = "text", @placeholder = "Phone No" })
+
+
+                    </td>
+                    <td>
+
+                        <label>Expected Completion of Date of Work</label>
+                        <br />
+
+                        @Html.TextBoxFor(s => s.ECDStr, new { @class = "form-control", @type = "date" })
+                        <br />
+
+                        <label>Expected Commencement of Date of Work</label>
+                        <br />
+
+                        @Html.TextBoxFor(s => s.ECDStr, new { @class = "form-control", @type = "date" })
+
+
+                    </td>
+                </tr>
+            </table>
+
+
+            <br />
+
+            @*<table style="width:100% !important;">
+                <tr>
+                    <td style="width:10%;padding: 10px;">
+                        <label>For</label>
+                        <br />
+                        <label>Address</label>
+                    </td>
+                    <td style="">
+                        @Html.TextBoxFor(s => s.For, new { @class = "form-control sm", @type = "text" })
+                        @Html.TextBoxFor(s => s.Address, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+            </table>*@
+
+            <br />
+
+            <table id="sheetDetail" style="width:100% !important;">
+                <thead>
+                    <tr style="background-color: #a8dcd8">
+                        <th style="width:10%;padding: 15px;">Id</th>
+                        <th style="width:60%;padding: 15px;">Item</th>
+                        <th style="width:30%;padding: 15px;">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.items.Count; i++)
+                    {
+                        <tr>
+                            <td style="padding:5px">@i</td>
+                            <td> @Html.TextBoxFor(s => s.items[i].item, new { @class = "form-control" })</td>
+                            <td> @Html.TextBoxFor(s => s.items[i].ammount, new { @class = "form-control price", @type = "number" })</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            <style>
+                #mydiv2 {
+                    border: none;
+                }
+
+                    #mydiv2 tr td {
+                        border: none;
+                    }
+            </style>
+
+            <table style="width:100% !important;" id="mydiv2">
+                <tr>
+                    <td style="width:70%">
+                    </td>
+                    <td>
+                        <div class="row1" style="margin-top:0rem;display:none">
+                            <div class="col11" style="padding-top:5px">
+                                <p>Sub Totals:</p>
+                            </div>
+                            <div class="col111">
+
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+
+                                <label class="form-label" style="padding-top:5px">Sub Totals:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.subtotall, new { @class = "form-control", @type = "number", @id = "subtotall" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+
+                                <label class="form-label" style="padding-top:5px">Tax %:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.tax, new { @class = "form-control sm", @type = "number", @id = "tax" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+                                <label class="form-label" style="padding-top:5px">Tax Amount:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.totallTaxAmount, new { @class = "form-control sm", @type = "number", @id = "taxAmount" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+                                <label class="form-label" style="padding-top:5px">Shipment Handling %:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.totallTaxAmount, new { @class = "form-control sm", @type = "number", @id = "shipment" })
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row1">
+                            <div class="col11">
+                                <label class="form-label" style="padding-top:5px">Total:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.totall, new { @class = "form-control sm", @type = "number", @id = "totall" })
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </td>
+                </tr>
+            </table>
+
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div style="text-align:center">
+                <p>If have any question concerning this quote contact. YourFormz at office@yourformz.com</p>
+
+            </div>
+            <br />
+
+            <div style="text-align:center">
+                <h2>THANK YOU FOR YOUR BUSSINESS</h2>
+            </div>
+
+            <style>
+                #mycop {
+                    display: none
+                }
+            </style>
+            @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+        }
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        var subt = 0;
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+        $("#sheetDetail").on("change", ".price", function () {
+
+
+
+
+
+            var numItems = $('#sheetDetail >tbody >tr').length
+
+            let spData = [];
+            var subtotall = 0;
+            for (let i = 0; i < numItems; i++) {
+
+                var val = $("#items_" + i + "__ammount").val();
+
+                subtotall = parseFloat(subtotall) + +parseFloat(val);
+
+
+            }
+
+            $("#subtotall").val(subtotall);
+            subt = subtotall;
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#tax").val();
+            var shipment = $("#shipment").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subtotall;
+
+
+
+
+
+            }
+            if (shipment === 0) {
+                shipmentam = 0;
+            }
+            else {
+                shipmentam = shipment / 100 * subtotall;
+            }
+
+
+            totall = taxam + subtotall + shipmentam;
+            $("#totall").val(totall);
+            $("#taxAmount").val(tax);
+
+
+        });
+        $("#tax").change(function () {
+
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#tax").val();
+            var shipment = $("#shipment").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subt;
+
+
+
+
+
+            }
+            if (shipment === 0) {
+                shipmentam = 0;
+            }
+            else {
+                shipmentam = shipment / 100 * subt;
+            }
+
+
+            totall = taxam + subt + shipmentam;
+            $("#totall").val(totall);
+            $("#taxAmount").val(taxam);
+
+
+
+        });
+        $("#shipment").change(function () {
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#tax").val();
+            var shipment = $("#shipment").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subt;
+
+
+
+
+
+            }
+            if (shipment === 0) {
+                shipmentam = 0;
+            }
+            else {
+                shipmentam = shipment / 100 * subt;
+            }
+
+
+            totall = taxam + subt + shipmentam;
+            $("#totall").val(totall);
+            $("#taxAmount").val(shipmentam);
+
+
+
+        });
+
+        $(document).on("click", '#btnAddNewRow', function () {
+            var totalRows = $('#sheetDetail >tbody >tr').length;
+            var newRow = `<tr>
+                                  <td style="padding:5px">`+ totalRows + `</td>
+                                  <td>
+                                       <input class="form-control" id="items_`+ totalRows + `__item" name="items[` + totalRows + `].item" type="text" value="">
+                                  </td>
+                                   <td>
+                                       <input class="form-control price" id="items_`+ totalRows + `__ammount" name="items[` + totalRows + `].ammount" type="number"  value="0">
+                                  </td>
+
+        </tr>`;
+            $('#sheetDetail > tbody').append(newRow);
+        });
+    </script>
+}

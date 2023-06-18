@@ -1,0 +1,202 @@
+﻿@model TemplateManagementSystem.Models.Template5ViewModel
+
+<style>
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table td, table th {
+            border: 1px solid black;
+        }
+</style>
+
+<table style="width:100% !important;">
+    <tr>
+        <td style="width:25% !important; padding:15px;"><b>Name / Group</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.Name
+        </td>
+        <td style="width:25% !important; padding:15px;"><b>Date</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @(string.Format("{0:MM/dd/yyyy hh:mm tt}",Model.Date))
+        </td>
+    </tr>
+    <tr>
+        <td style="width:25% !important; padding:15px;"><b>Location</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.Location
+        </td>
+        <td style="width:25% !important; padding:15px;"><b>Co-ordinator's Name</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.CoordinatorName
+        </td>
+    </tr>
+    <tr>
+        <td style="width:25% !important; padding:15px;"><b>Activity</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.Activity
+        </td>
+        <td style="width:25% !important; padding:15px;"><b>No. Of Leaders</b></td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.NoOfLeaders
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25% !important; padding: 15px; background-color: #a8dcd8;"><b>Analysis</b></td>
+        <td colspan="3" style="padding: 15px; background-color: #a8dcd8;"><b>Description</b></td>
+    </tr>
+    <tr>
+        <td style="width:25% !important; padding:15px;">
+            <b>Risks Accident, Injury, Damage and other forms of loss</b>
+        </td>
+        <td colspan="3" style="padding: 15px;">
+            @Model.RiskAnalysis
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width: 25% !important; padding: 15px;">
+            <b>Casual Factors, Hazards, Perils, Dangers</b>
+        </td>
+        <td style="width: 25% !important;padding: 15px; background-color: #a8dcd8;"><b>People</b></td>
+        <td style="width: 25% !important;padding: 15px; background-color: #a8dcd8;"><b>Equipment</b></td>
+        <td style="width: 25% !important;padding: 15px; background-color: #a8dcd8;"><b>Environment</b></td>
+    </tr>
+    <tr>
+
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.CasualFactorPeople
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.CasualFactorEquipment
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.CasualFactorEnvironment
+        </td>
+    </tr>
+    <tr>
+        <td rowspan="2" style="width:25% !important;">
+            <table style="width:100%;border:none;">
+                <tr>
+                    <td rowspan="2" style="width: 50%;padding:15px; writing-mode: vertical-rl;">
+                        <b>Risk Management</b>
+                    </td>
+                    <td style="width: 50%; padding: 15px; writing-mode: vertical-rl; ">
+                        <b>Normal Operations</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%; padding: 15px; border: none; writing-mode: vertical-rl; ">
+                        <b>Emergency</b>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.NormalOperationPeople
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.NormalOperationEquipment
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.NormalOperationEnvironment
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.EmergencyPeople
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.EmergencyEquipment
+        </td>
+        <td style="width: 25% !important; padding: 15px;">
+            @Model.EmergencyEnvironment
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25% !important; padding: 15px;">
+            Skills Required By Leaders
+        </td>
+        <td colspan="3" style="padding: 15px;">
+            @Model.SkillsRequiredByLeaders
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 25% !important; padding: 15px;">
+            <b>Final Decision</b> on implementing activity
+        </td>
+        <td colspan="3">
+            <table style="width:100% !important;">
+                <tr>
+                    @*<td rowspan="4" style="width: 20% !important; padding: 15px;">
+                            <b>Final Decision</b> on implementing activity
+                        </td>*@
+                    <td style="width: 25% !important; padding: 15px;">
+                        <b>Form Completed By</b>
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        <img src="@Model.FormCompletedBy" alt="Alternate Text" />
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        <b>Date</b>
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        @(string.Format("{0:MM/dd/yyyy hh:mm tt}", Model.FormCompletionDate))
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25% !important; padding: 15px;">
+                        <b>Choose One</b>
+                    </td>
+
+                    <td style="width: 25% !important; padding: 15px;">
+
+                        @Html.CheckBoxFor(s => s.ActivityStatus.Value, new { }) <span>Yes</span>
+                    </td>
+                    <td colspan="2" style="padding: 15px; padding: 15px;">
+                        @Html.CheckBoxFor(s => s.ActivityStatus.Value, new { }) <span>No</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20% !important; padding: 15px;">
+                        <b>Approved By</b>
+                    </td>
+                    <td colspan="3" style="padding: 15px;">
+                        <img src="@Model.ApprovedBy" alt="Alternate Text" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25% !important; padding: 15px;">
+                        <b>Position</b>
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        @Model.Position
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        <b>Date</b>
+                    </td>
+                    <td style="width: 25% !important; padding: 15px;">
+                        @(string.Format("{0:MM/dd/yyyy hh:mm tt}",Model.ApprovedDate))
+                    </td>
+                </tr>
+            </table>
+        </td>
+
+    </tr>
+</table>
+
+
+
+
+

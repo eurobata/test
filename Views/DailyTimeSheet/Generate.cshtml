@@ -1,0 +1,247 @@
+﻿@model TemplateManagementSystem.Models.DailyTimeSheetViewModel
+@{
+    ViewBag.Title = "Daily Time Sheet";
+}
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Daily Time Sheet</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body-Templates">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                @if (!string.IsNullOrEmpty(Convert.ToString(TempData["Message"])))
+                {
+                    if (Convert.ToString(TempData["Message"]).StartsWith("Success"))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        @using (Html.BeginForm("Index", "DailyTimeSheet", FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(s => s.Id)
+            <table style="width:100% !important;">
+                <tr>
+                    <td style="width:20%;padding-left:15px;"><b>Name</b></td>
+                    <td style="width:80%;">
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Department</b></td>
+                    <td style="width:80%;">
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.Department, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Location</b></td>
+                    <td style="width:80%;">
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.Location, new { @class = "form-control" }) 
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <table id="sheetDetail" style="width:100% !important;">
+                <thead>
+                    <tr>
+                        <th style="width:40%;padding: 15px;">Job Description</th>
+                        <th style="width:20%;padding: 15px;">Time Started</th>
+                        <th style="width:20%;padding: 15px;">Time Stopped</th>
+                        <th style="width:20%;padding: 15px;">Initials</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.lstDetails.Count; i++)
+                    {
+                        <tr>
+                            <td> <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.lstDetails[i].JobDescription, new { @class = "form-control" })</td>
+                            <td>  @Html.TextBoxFor(s => s.lstDetails[i].TimeStarted, new { @class = "form-control highlighted text-box", @type = "time" })</td>
+                            <td>  @Html.TextBoxFor(s => s.lstDetails[i].TimeStopped, new { @class = "form-control highlighted text-box", @type = "time" })</td>
+                            <td> <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.lstDetails[i].Initials, new { @class = "form-control" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table><br /><div class="row">
+                              <div class="col-md-12">
+                                  @if (string.IsNullOrEmpty(ViewBag.pre))
+                                  {
+                                      <button type="button" id="btnAddNewRow" class="btn btn-success">Add New</button>
+                                      @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                                      <button type="submit" class="btn btn-success">Generate</button>
+
+                                      if (Model.Id > 0)
+                                      {
+                                          <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                                      }
+
+                                  }
+
+                                  <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+                              </div>
+            </div>
+
+            <!--<div id="emailModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">-->
+
+                    <!-- Modal content-->
+                    <!--<div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Email</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Email
+                                    @Html.TextBoxFor(s => s.Email, new { @class = "form-control", @required = "required", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Subject
+                                    @Html.TextBoxFor(s => s.Subject, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    CC
+                                    @Html.TextBoxFor(s => s.CC, new { @class = "form-control", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.CC, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Body
+                                    @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Generate</button>
+
+                            @if (Model.Id > 0)
+                            {
+                                <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>-->
+            <style>
+                #mycop {
+                    display: none
+                }
+            </style>
+            @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+        }
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+        $(document).on("click", '#btnAddNewRow', function () {
+            var totalRows = $('#sheetDetail >tbody >tr').length;
+            if (totalRows >= 20) {
+                $('#btnAddNewRow').hide();
+                alert("Number of rows exceeded");
+                return;
+            }
+            var newRow = `<tr>
+        <td>
+            <input class="form-control text-box" id="lstDetails_`+ totalRows + `__JobDescription" name="lstDetails[` + totalRows + `].JobDescription" type="text" value="">
+        </td>
+        <td>
+            <input class="form-control text-box" id="lstDetails_`+ totalRows + `__TimeStarted" name="lstDetails[` + totalRows + `].TimeStarted" type="time" value="">
+        </td>
+        <td>
+            <input class="form-control text-box" id="lstDetails_`+ totalRows + `__TimeStopped" name="lstDetails[` + totalRows + `].TimeStopped" type="time" value="">
+        </td>
+        <td>
+            <input class="form-control text-box" id="lstDetails_`+ totalRows + `__Initials" name="lstDetails[` + totalRows + `].Initials" type="text" value="">
+        </td>
+    </tr>`;
+            $('#sheetDetail > tbody').append(newRow);
+
+            // Add highlight class to new text boxes
+            const newTextBoxes = document.querySelectorAll("#sheetDetail input.text-box");
+            newTextBoxes.forEach(function (textBox) {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+
+        // Highlight text boxes with "highlighted" class
+        const textBoxes = document.querySelectorAll(".text-box");
+        textBoxes.forEach(function (textBox) {
+            textBox.addEventListener("input", function () {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+    </script>
+}

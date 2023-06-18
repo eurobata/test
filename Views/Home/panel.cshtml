@@ -1,0 +1,618 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/assets/css/jquery.minipreview.css" rel="stylesheet" />
+<style>
+    .HeartAnimation {
+        padding-top: 0.8em;
+        background-repeat: no-repeat;
+        background-size: 2900%;
+        background-position: left;
+        height: 45px;
+        width: 170px;
+        margin: 2px auto;
+        cursor: pointer;
+        background-color: green;
+        font-weight: bolder;
+        color: white;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+    }
+
+        .HeartAnimation::after {
+            content: "FAVOURITE";
+        }
+
+    .preview {
+        margin-top: 15px;
+        width: 170px;
+        border: hidden;
+        background-color: lightgray;
+        border-radius: 10px;
+    }
+
+    .animate {
+        animation: heart-burst .8s steps(28) forwards;
+        background-color: #800080;
+    }
+
+        .animate::after {
+            content: "UNFAVOURITE";
+            font-weight: bolder;
+            color: white;
+        }
+
+        .animate ~ .HeartAnimation::after {
+            content: "";
+            background-color: red;
+        }
+
+
+
+    @@keyframes heart-burst {
+        0% {
+            background-position: left
+        }
+
+        100% {
+            background-position: right
+        }
+    }
+
+
+    a {
+        color: black;
+    }
+
+    .break {
+        text-align: center;
+    }
+
+    .sidebar {
+        display: block;
+    }
+
+    @@media (max-width: 800px) {
+        .sidebar {
+            display: none;
+        }
+    }
+
+    .hidden-xs {
+        display: none;
+    }
+
+    @@media (max-width: 800px) {
+        .hidden-xs {
+            display: block;
+            margin: auto;
+            text-decoration: underline;
+            border: none;
+            font-weight: bold;
+        }
+    }
+
+    .hidden-xl {
+        display: block;
+    }
+
+    @@media (max-width: 800px) {
+        .hidden-xl {
+            display: none;
+        }
+    }
+
+    @@media (max-width: 800px) {
+        .HomeMargin {
+            margin-top: 0px;
+        }
+    }
+
+    @@media (min-width: 800px) {
+        .HomeMargin {
+            margin-top: 20px;
+        }
+    }
+</style>
+
+@*<div class="row" style="margin-top:0px">*@
+@*<div class="col-md-2 text-center" style="border-right: ridge;">
+        <button id="dropdown-button" class="hidden-xs">Categories</button>
+        <div class="sidebar">
+            <p style="font-weight:900;font-size: 20px; padding-bottom: 10px;" class="hidden-xl">Catageory</p>
+            <ul class="container">
+                <li>
+                    <a href="#all" id="catall" onclick="myFunctions('','catall')">All Categories</a>
+
+                </li>
+                <li>
+                    <a href="#test" id="cattest" onclick="myFunctions('test','cattest')">Used more regular</a>
+
+                </li>
+                <li>
+                    <a href="#beta" id="catbeta" onclick="myFunctions('beta','catbeta')">Used ocassionally</a>
+                </li>
+            </ul>
+        </div>
+    </div>*@
+<style>
+    .my {
+        background-color: darkslategray;
+        color: white;
+        padding: 3px;
+    }
+
+    .myun {
+        background-color: red;
+        color: white;
+        padding: 3px;
+    }
+
+    .my a::before {
+        content: "Favourite";
+        color: white;
+    }
+
+    .mydisp {
+        display: none;
+    }
+</style>
+<div class="col-md-10">
+    <div class="row item-all-cat HomeMargin" id="myul">
+
+        @foreach (var item in ViewBag.lstTemplates)
+        {
+            <div class="col-lg-4 col-md-4 ">
+                <div>
+                    <div class="item-all-card bg-purple text-center col-lg-12">
+                        @if (item.TemplateName == "Daily Time Sheet")
+                        {
+                            <a id="lnkTimeSheet" href="/DailyTimeSheet/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Call Out Report")
+                        {
+                            <a id="lnkCallOutReport" href="/CallOutReport/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Template 5")
+                        {
+                            <a id="lnkTemplate5" href="/Template5/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Pressure Washing Estimate")
+                        {
+                            <a id="lnkTemplate6" href="/pressureWashing/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Business Quotes")
+                        {
+                            <a id="lnkTemplate7" href="/bussinessquotes/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Customer Template")
+                        {
+                            <a id="lnkTemplate8" href="/customertemplete/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Risk Management Checklist")
+                        {
+                            <a id="lnkTemplate9" href="/riskmanagement/Generate"></a>
+                        }
+                        else if (item.TemplateName == "AC Quote Form")
+                        {
+                            <a id="lnkTemplate10" href="/acquote/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Domestic Smoke Alarm")
+                        {
+                            <a id="lnkTemplate11" href="/domesticSmokeAlarm/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Domestic Smoke Alarm II")
+                        {
+                            <a id="lnkTemplate12" href="/domesticSmokeAlarmII/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Boiler Service Condition")
+                        {
+                            <a id="lnkTemplate13" href="/boilerService/Generate"></a>
+                        }
+                        else if (item.TemplateName == "COVID-19 Pre-Check Form")
+                        {
+                            <a id="lnkTemplate14" href="/covid19/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Job Completion Report II")
+                        {
+                            <a id="lnkTemplate15" href="/jobcompletionii/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Job Completion Report")
+                        {
+                            <a id="lnkTemplate16" href="/jobcompletion/Generate"></a>
+                        }
+                        else if (item.TemplateName == "Cleaning Checklist")
+                        {
+                            <a id="lnkTemplate17" href="/cleaningchecklist/Generate"></a>
+                        }
+
+                        <div class="item-all-text mt-4">
+                            <p>@item.TemplateName <span style="display:none">@item.TemplateCategory</span> </p>
+                        </div>
+                        <div class="item-all-icon">
+                            <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                        </div>
+                    </div>
+
+                    <div class="text-center " style="width: 260px; margin-top: -20px; ">
+                        <button id="btnPopup1" data-templateId="@item.TemplateName" class="preview">Preview Template</button>
+                        <div class="HeartAnimation" id="dv@(item.TemplateClass)" title="Add To Favourite">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+        <input type="hidden" id="hdfFavourites" name="name" value="@ViewBag.Favourties" />
+        @*<div class="col-lg-4 col-md-4">
+            <div class="item-all-card bg-purple text-center">
+                <a id="lnkCallOutReport" href="/CallOutReport/Generate"></a>
+                <div class="item-all-text mt-4">
+                    <p>Call Out Report <span style="display:none">test</span></p>
+                </div>
+                <div class="iteam-all-icon">
+                    <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                </div>
+            </div>
+            <div class="text-center " style="width: 260px; margin-top: -20px;">
+                <button id="btnPopup2" class="preview">Preview Template</button>
+                <div class="HeartAnimation" id="dvCallOutReport" title="Add To Favourite"></div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="item-all-card bg-purple text-center">
+                <a id="lnkTemplate5" href="/Template5/Generate"></a>
+                <div class="item-all-text mt-4">
+                    <p>Template 5  <span style="display:none">beta</span></p>
+                </div>
+                <div class="iteam-all-icon">
+                    <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                </div>
+            </div>
+            <div class="text-center " style="width: 260px; margin-top: -20px;">
+                <button id="btnPopup3" class="preview">Preview Template</button>
+                <div class="HeartAnimation" id="dvTemplate5" title="Add To Favourite"></div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="item-all-card bg-purple text-center">
+                <a id="lnkTemplate6" href="/pressureWashing/Generate"></a>
+                <div class="item-all-text mt-4">
+                    <p>Pressure Washing Estimate  <span style="display:none">beta</span></p>
+                </div>
+                <div class="iteam-all-icon">
+                    <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                </div>
+            </div>
+            <div class="text-center " style="width: 260px; margin-top: -20px;">
+                <button id="btnPopup4" class="preview">Preview Template</button>
+                <div class="HeartAnimation" id="dvTemp4" title="Add To Favourite"></div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <div class="item-all-card bg-purple text-center">
+                <a id="lnkTemplate7" href="/bussinessquotes/Generate"></a>
+                <div class="item-all-text mt-4">
+                    <p>Bussiness Quotes  <span style="display:none">beta</span></p>
+                </div>
+                <div class="iteam-all-icon">
+                    <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                </div>
+            </div>
+            <div class="text-center " style="width: 260px; margin-top: -20px;">
+                <button id="btnPopup5" class="preview">Preview Template</button>
+                <div class="HeartAnimation" id="dvTemp5" title="Add To Favourite"></div>
+            </div>
+
+        </div>
+        <div class="col-lg-4 col-md-4">
+            <div class="item-all-card bg-purple text-center">
+                <a id="lnkTemplate8" href="/customertemplete/Generate"></a>
+                <div class="item-all-text mt-4">
+                    <p>Customer Template  <span style="display:none">beta</span></p>
+                </div>
+                <div class="iteam-all-icon">
+                    <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                </div>
+            </div>
+            <div class="text-center " style="width: 260px; margin-top: -20px;">
+                <button id="btnPopup6" class="preview">Preview Template</button>
+                <div class="HeartAnimation" id="dvTemp6" title="Add To Favourite"></div>
+            </div>
+
+        </div>*@
+    </div>
+
+
+</div>
+@*</div>*@
+
+
+@section Scripts{
+    <script src="~/assets/js/jquery.minipreview.js"></script>
+    <script type="text/javascript">
+
+        function myFunctions(str, cat) {
+            $("#catall").css("color", "black");
+            $("#cattest").css("color", "black");
+            $("#catbeta").css("color", "black");
+
+            $("#" + cat + "").css("color", "green");
+            $("#myInput").val(str);
+            $("#myInput").keyup();
+        }
+        function myFunction() {
+
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myul");
+            li = ul.getElementsByClassName('col-lg-4');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("span")[0];
+                debugger;
+                txtValue = a.textContent || a.innerText;
+                var cat = txtValue.split(",");
+                if (filter == "") {
+                    li[i].style.display = "";
+                }
+                else {
+                    for (var j = 0; j < cat.length; j++) {
+                        if (cat[j].toUpperCase() == filter) {
+                            li[i].style.display = "";
+                            break;
+                        } else {
+                            li[i].style.display = "none";
+
+                        }
+                    }  
+                }
+                
+            }
+        }
+
+        $(document).on("click", "#btnPopup1", function () {
+            var templateType = $(this).attr("data-templateId");
+            var w = window.open("about:blank", "Popup", "width=600, height=400");
+            if (templateType == "Daily Time Sheet") {
+                w.document.write("<iframe src='/assets/images/previews/DailyTimeSheet.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Call Out Report") {
+                w.document.write("<iframe src='/assets/images/previews/CallOutReport.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Template 5") {
+                w.document.write("<iframe src='/assets/images/previews/Template5.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Pressure Washing Estimate") {
+                w.document.write("<iframe src='/assets/images/previews/PressureWashingEstimate.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Business Quotes") {
+                w.document.write("<iframe src='/assets/images/previews/BusinessQuote.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Customer Template") {
+                w.document.write("<iframe src='/assets/images/previews/CustomerTemplate.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Risk Management Checklist") {
+                w.document.write("<iframe src='/assets/images/previews/RiskManagement.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "AC Quote Form") {
+                w.document.write("<iframe src='/assets/images/previews/acquote.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Boiler Service Condition") {
+                w.document.write("<iframe src='/assets/images/previews/boilerservice.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Cleaning Checklist") {
+                w.document.write("<iframe src='/assets/images/previews/cleaningChecklist.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "COVID-19 Pre-Check Form") {
+                w.document.write("<iframe src='/assets/images/previews/covid.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Job Completion Report") {
+                w.document.write("<iframe src='/assets/images/previews/Jobcompletion.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Job Completion Report II") {
+                w.document.write("<iframe src='/assets/images/previews/Jobcompletionii.pdf' width='100%' height='100%'></iframe>");
+            }
+            else if (templateType == "Domestic Smoke Alarm") {
+                w.document.write("<iframe src='/assets/images/previews/smokealaram.pdf' width='100%' height='100%'></iframe>");
+            }
+
+            else if (templateType == "Domestic Smoke Alarm II") {
+                w.document.write("<iframe src='/assets/images/previews/smokealarmII.pdf' width='100%' height='100%'></iframe>");
+            }
+
+        });
+
+        //document.getElementById("btnPopup1").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/DailyTimeSheet.pdf' width='100%' height='100%'></iframe>");
+        //});
+        //document.getElementById("btnPopup2").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/CallOutReport.pdf' width='100%' height='100%'></iframe>");
+        //});
+        //document.getElementById("btnPopup3").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/Template5.pdf' width='100%' height='100%'></iframe>");
+        //});
+        //document.getElementById("btnPopup4").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/PressureWashingEstimate.pdf' width='100%' height='100%'></iframe>");
+        //});
+        //document.getElementById("btnPopup5").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/BusinessQuote.pdf' width='100%' height='100%'></iframe>");
+        //});
+        //document.getElementById("btnPopup6").addEventListener("click", function () {
+        //    var w = window.open("about:blank", "Popup", "width=600, height=400");
+        //    w.document.write("<iframe src='/assets/images/previews/CustomerTemplate.pdf' width='100%' height='100%'></iframe>");
+        //});
+
+        $(function () {
+
+            $('#lnkTimeSheet').miniPreview({ prefetch: 'pageload' });
+            $('#lnkCallOutReport').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate5').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate6').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate7').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate8').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate9').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate10').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate11').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate12').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate13').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate14').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate15').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate16').miniPreview({ prefetch: 'pageload' });
+            $('#lnkTemplate17').miniPreview({ prefetch: 'pageload' });
+
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#alltemp").addClass("myactive");
+
+            var favs = JSON.parse($("#hdfFavourites").val());
+            if (favs.length > 0) {
+                for (var i = 0; i < favs.length; i++) {
+                    if (favs[i].TemplateType == "Daily Time Sheet") {
+                        if (favs[i].TemplateType == "Daily Time Sheet") {
+
+
+                        }
+                        $("#dvDailyTimeSheet").addClass("animate");
+                        //$("#fv1").hide();
+                        //$("#unfv1").show();
+                    }
+                    else if (favs[i].TemplateType == "Call Out Report") {
+                        $("#dvCallOutReport").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Template 5") {
+                        $("#dvTemplate5").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Pressure Washing") {
+                        $("#dvPressureWashingEstimate").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Bussiness Quote") {
+                        $("#dvBusinessQuotes").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Customer Templete") {
+                        $("#dvCustomerTemplate").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Risk Management Checklist") {
+                        $("#dvRiskManagementChecklist").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "AC Quote Form") {
+                        $("#dvACQuoteForm").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Domestic Smoke Alarm") {
+                        $("#dvDomesticSmokeAlarm").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Domestic Smoke Alarm II") {
+                        $("#dvDomesticSmokeAlarmII").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Boiler Service Condition") {
+                        $("#dvBoilerServiceCondition").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "COVID-19 Pre-Check Form") {
+                        $("#dvCOVID-19Pre-CheckForm").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Job Completion Report II") {
+                        $("#dvJobCompletionReportII").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Job Completion Report") {
+                        $("#dvJobCompletionReport").addClass("animate");
+                    }
+                    else if (favs[i].TemplateType == "Cleaning Checklist") {
+                        $("#dvCleaningChecklist").addClass("animate");
+                    }
+
+                }
+            }
+
+            $(".HeartAnimation").click(function () {
+                $(this).toggleClass("animate");
+                var id = $(this).attr("id");
+                var param = "";
+                if (id == "dvCallOutReport")
+
+                    param = "Call Out Report";
+                else if (id == "dvTemplate5")
+                    param = "Template 5";
+                else if (id == "dvDailyTimeSheet") {
+                    // if ($("#fv1").is(":visible")) {
+                    //    $("#unfv1").show();
+                    //    $("#fv1").hide();
+
+                    //}
+                    //else {
+                    //    $("#unfv1").hide();
+
+                    //    $("#fv1").show();
+                    //}
+                    param = "Daily Time Sheet";
+
+                }
+                else if (id == "dvPressureWashingEstimate")
+                    param = "Pressure Washing";
+                else if (id == "dvBusinessQuotes")
+                    param = "Bussiness Quote";
+                else if (id == "dvRiskManagementChecklist")
+                    param = "Risk Management Checklist";
+                else if (id == "dvACQuoteForm")
+                    param = "AC Quote Form";
+                else if (id == "dvDomesticSmokeAlarm")
+                    param = "Domestic Smoke Alarm";
+                else if (id == "dvDomesticSmokeAlarmII")
+                    param = "Domestic Smoke Alarm II";
+                else if (id == "dvBoilerServiceCondition")
+                    param = "Boiler Service Condition";
+                else if (id == "dvCOVID-19Pre-CheckForm")
+                    param = "COVID-19 Pre-Check Form";
+                else if (id == "dvJobCompletionReportII")
+                    param = "Job Completion Report II";
+                else if (id == "dvJobCompletionReport")
+                    param = "Job Completion Report";
+                else if (id == "dvCleaningChecklist")
+                    param = "Cleaning Checklist";
+
+                var toggle = "";
+                if ($(this).hasClass("animate")) {
+                    toggle = "Yes";
+                }
+                else {
+                    toggle = "No";
+                }
+                $.ajax({
+                    url: "/Home/AddToFavourite",
+                    type: "Post",
+                    data: { templateType: param, add: toggle },
+                    success: function (result) {
+
+                    }
+                });
+
+            });
+
+        });
+        $(document).ready(function () {
+            $('#dropdown-button').click(function () {
+                $('.sidebar').toggle();
+            });
+        });
+    </script>
+
+}
+
+@*</div>
+    </div>*@

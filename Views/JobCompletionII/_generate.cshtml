@@ -1,0 +1,453 @@
+﻿@{
+    ViewBag.Title = "Job Completion";
+}
+@model TemplateManagementSystem.Models.JobCompletionII
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@Html.Partial("_css")
+
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-8 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-2 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-10 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .cols-md-8 {
+            flex: 0 0 66%;
+            max-width: 66%;
+        }
+
+        .cols-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .cols-md-2 {
+            flex: 0 0 10%;
+            max-width: 10%;
+        }
+
+        .cols-md-10 {
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+    }
+</style>
+
+
+<div class="card" style="padding-left:2rem;padding-right:2rem">
+    @using (Html.BeginForm("Index", "DailyTimeSheet", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+
+        <div class="row">
+            <div class="col-xs-6">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="200" height="100" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="200" height="100" />
+
+                }
+
+
+            </div>
+            <div class="col-xs-6" style="text-align:right">
+
+                <p>@Model.Name</p>
+                <p>@Model.locationLin1</p>
+                <p>@Model.locationLin2</p>
+                <p>@Model.city</p>
+                <p>@Model.postcode</p>
+                <p>@Model.phone</p>
+                <p>@Model.email</p>
+                <p>@Model.website</p>
+
+            </div>
+
+        </div>
+        <br />
+        <table style="width:100% !important;">
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; color: white">
+                    NAME
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Job, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; color: white ">
+                    DATE
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.datestr, new { @class = "form-control sm", @type = "date" })
+
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; color: white ">
+                    ClIENT
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.clientName, new { @class = "form-control sm", @type = "text" })
+
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; color: white ">
+                    SITE ADDRESS
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.siteAddress, new { @rows = 3, @class = "form-control sm", @type = "text" })
+
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue;color:white">
+                    CALL BACK REQUIRED
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.callBack, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+
+                </td>
+
+            </tr>
+
+        </table><br /><table style="width:100% !important;">
+            <tr>
+                <td style="padding: 0.5rem; background-color: dodgerblue;text-align:center; color: white ">
+                    Befor Photo
+                </td>
+                <td style="padding: 0.5rem; background-color: dodgerblue; text-align: center; color: white ">
+                    After Photo
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @if (string.IsNullOrEmpty(Model.beforPhoto))
+                    {
+                        <img id="bfI" width="300" />
+
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(s => s.beforPhoto)
+
+                        <img id="bfI" width="300" src="@Server.MapPath("~/pics/"+Model.beforPhoto+"")" />
+
+                    }
+
+
+                </td>
+                <td>
+                    @if (string.IsNullOrEmpty(Model.afterPhoto))
+                    {
+
+                        <img id="bfA" width="300" />
+
+                    }
+                    else
+                    {
+                        @Html.HiddenFor(s => s.afterPhoto)
+
+                        <img id="bfA" width="300" src="@Server.MapPath("~/pics/"+Model.afterPhoto+"")" />
+
+                    }
+
+
+                </td>
+
+
+            </tr>
+        </table>
+        <br /><table style="width:100% !important;">
+
+            <tr>
+                <td style="padding: 0.5rem; background-color: dodgerblue;text-align:center; color: white ">
+                    Issue Reported
+                </td>
+                <td style="padding: 0.5rem; background-color: dodgerblue; text-align: center; color: white ">
+                    Work Carried Out
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(s => s.issueReported, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+                </td>
+
+                <td>
+                    @Html.TextAreaFor(s => s.workCarried, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding: 0.5rem; background-color: dodgerblue;text-align:center; color: white ">
+                    Additional Notes
+                </td>
+                <td style="padding: 0.5rem; background-color: dodgerblue; text-align: center; color: white ">
+                    Material Used
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(s => s.additionalNotes, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+                </td>
+
+                <td>
+                    @Html.TextAreaFor(s => s.MaterialUsed, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+
+        </table>
+        <br /><table style="width:100% !important;">
+            <tr>
+                <td style="padding: 0.5rem; background-color: dodgerblue;text-align:center; color: white ">
+                    Customer Name
+                </td>
+                <td style="padding: 0.5rem; background-color: dodgerblue; text-align: center; color: white ">
+                    Customer Signature
+                </td>
+
+            </tr>
+            <tr>
+                <td width="50%">
+                    @Html.TextBoxFor(s => s.cusomername, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+                </td>
+
+                <td>
+                    <div class="rows cols-md-12">
+
+
+                        <img src="@Model.sign" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.sign) ? "displayNone" :"")" />
+                        <br />
+
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+
+        </table>
+
+
+    }
+
+</div>
+
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+    </script>
+
+    <script src="~/Scripts/signature_pad.min.js"></script>
+    <script type="text/javascript">
+        $(document).on("click", "#pSignature", function () {
+
+
+            $("#hdfImageType").val("Approved By");
+
+
+            $("#signModel").modal("show");
+        });
+
+        $(document).on("click", "#pCompletedBy", function () {
+            $("#hdfImageType").val("Completed By");
+            $("#signModel").modal("show");
+        });
+
+        $(document).ready(function () {
+            var approvedBy = document.querySelector('#approvedBy');
+            var padApproved = new SignaturePad(approvedBy);
+
+            $('#btnSign').click(function (e) {
+                debugger;
+                var imageType = $("#hdfImageType").val();
+                var approveByData = padApproved.toDataURL();
+                padApproved.off();
+
+
+                var valid = "Yes";
+                if (isCanvasBlank(approvedBy)) {
+                    $("#spAgreement").text("Please add signature for " + imageType + ".");
+                    valid = "No";
+                }
+                else {
+                    $("#spAgreement").text("");
+                }
+
+                if (valid == "No") {
+                    e.preventDefault();
+                }
+                else {
+                    $("#signModel").modal("hide");
+                    if (imageType == "Approved By") {
+                        $("#hdfApprovedBy").val(approveByData);
+                        $("#imgApprovedBy").attr("src", approveByData);
+                        $("#imgApprovedBy").removeClass("displayNone");
+                    }
+
+
+                    approvedBy = document.querySelector('#approvedBy');
+                    padApproved = new SignaturePad(approvedBy);
+                }
+            });
+            function isCanvasBlank(canvass) {
+                const context = canvass.getContext('2d');
+
+                const pixelBuffer = new Uint32Array(
+                    context.getImageData(0, 0, canvass.width, canvass.height).data.buffer
+                );
+
+                return !pixelBuffer.some(color => color !== 0);
+            }
+
+            $(document).on("click", "#btnClearSignature", function () {
+                var canvas = document.querySelector('#approvedBy');
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                padApproved = new SignaturePad(canvas);
+            });
+        });
+        const textBoxes = document.querySelectorAll(".text-box");
+        textBoxes.forEach(function (textBox) {
+            textBox.addEventListener("input", function () {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+
+    </script>
+    <script type="text/javascript">
+        var loadFile = function (event) {
+            var output = document.getElementById('bfI');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+        var loadFile2 = function (event) {
+            var output = document.getElementById('bfA');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
+}
+

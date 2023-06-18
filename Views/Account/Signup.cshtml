@@ -1,0 +1,500 @@
+﻿@model TemplateManagementSystem.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = null;
+}
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<meta name="msapplication-TileColor" content="#0f75ff">
+<meta name="theme-color" content="#9d37f6">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+
+<link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,600,800" rel="stylesheet">
+
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+@*<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">*@
+<link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+<!-- Main CSS -->
+<link href="~/assets/main.css" rel="stylesheet" />
+<link href="~/assets/aos.css" rel="stylesheet" />
+<!--Bootstrap-->
+@*<link href="~/assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />*@
+
+<!--Dashboard-->
+@*<link href="~/assets/css/dashboard.css" rel="stylesheet" />
+    <link href="~/assets/css/admin-custom.css" rel="stylesheet" />*@
+
+<!--SidemenuCss-->
+@*<link href="~/assets/plugins/toggle-sidebar/sidemenu.css" rel="stylesheet" />*@
+
+<!--Scrollbar css-->
+@*<link href="~/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />*@
+
+<!--c3 js Assets Charts-->
+@*<link href="~/assets/plugins/charts-c3/c3-chart.css" />*@
+<!--FontIcons-->
+@*<link href="~/assets/css/icons.css" rel="stylesheet" />
+    <link href="~/assets/plugins/iconfonts/icons.css" rel="stylesheet" />*@
+
+<div class="row h-md-100 align-items-center" style="font-size:small">
+    <div class="col-md-4 p-0 h-md-100" style="background: #fff;">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <img src="~/assets/images/login1.png" class="header-brand-img">
+                <span class="text-black-50">Already have account?</span> <a href="../Account/Signin">SignIn</a>
+            </div>
+
+        </div>
+        @*<div class="text-center  mt-3 text-dark">
+                Already have account?<a href="../Account/Login">SignIn</a>
+            </div>*@
+    </div>
+    <div class="col-md-8 p-0 bg-white h-md-100 loginarea">
+        <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            @using (Html.BeginForm("Signup", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "border rounded p-5", role = "form", id = "login", tabindex = "500" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <h3 class="mb-2 text-center">Register</h3>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.FirstName, new { @class = "form-control", @placeholder = "First Name" })
+                            @Html.ValidationMessageFor(j => j.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.LastName, new { @class = "form-control", @placeholder = "Last Name" })
+                            @Html.ValidationMessageFor(j => j.LastName, "", new { @class = "text-danger", @placeholder = "Last Name" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.Email, new { @class = "form-control", @placeholder = "Enter Email" })
+                            @Html.ValidationMessageFor(j => j.Email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.Phone, new { @class = "form-control", @placeholder = "Phone Number" })
+                            @Html.ValidationMessageFor(j => j.Phone, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.DropDownListFor(m => m.Country,
+                                                                            new SelectList(ViewBag.Countries, "Id", "Name"),
+                                                                            "Select Country", new { @class = "form-control", @id = "ddlCountry" })
+                            @Html.ValidationMessageFor(j => j.Country, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.city, new { @class = "form-control", @placeholder = "City Name" })
+                            @Html.ValidationMessageFor(j => j.city, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.PostCode, new { @class = "form-control", @placeholder = "Postal Code" })
+                            @Html.ValidationMessageFor(j => j.PostCode, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.OfficeNo, new { @class = "form-control", @placeholder = "Building/Flat/Office number" })
+                            @Html.ValidationMessageFor(j => j.OfficeNo, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.Address, new { @class = "form-control", @placeholder = "Address line 1" })
+                            @Html.ValidationMessageFor(j => j.Address, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.Address2, new { @class = "form-control", @placeholder = "Address line 2" })
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.TextBoxFor(j => j.Address3, new { @class = "form-control", @placeholder = "Address line 3" })
+
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.PasswordFor(j => j.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @Html.ValidationMessageFor(j => j.Password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label text-dark"></label>
+                            @Html.PasswordFor(j => j.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password" })
+                            @Html.ValidationMessageFor(j => j.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
+                </div>
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        @Html.CheckBoxFor(j => j.Agree, new { @class = "custom-control-input" })
+                        @Html.ValidationMessageFor(j => j.Agree, "", new { @class = "text-danger" })
+                        <span class="custom-control-label text-dark">Agree to <a href="/account/termsConditions">Terms and Conditions</a></span>
+                    </label>
+                </div>
+                <div class="form-footer mt-2">
+                    <button type="button" style="background-color: #017C72;color:white;" class="btn btn-green btn-block" data-toggle="modal" id="ms" data-target="#emailModal">Select Plan</button>
+
+                    @*<input type="submit" style="background-color: #017C72;color:white;" class="btn btn-green btn-block" value="Create New Account" />*@
+
+                </div>
+
+                <style>
+                    hr {
+                        margin-top: 1rem;
+                        margin-bottom: 1rem;
+                        border: 0;
+                        border-top: 1px solid rgba(0, 0, 0, 0.3);
+                    }
+                    * {
+                        margin: 0;
+                        padding: 0;
+                        box-sizing: border-box;
+                        font-family: 'Poppins',sans-serif;
+                    }
+
+                    .container {
+                        width: 100%;
+                        min-height: 100vh;
+                    }
+
+                        .container h2 {
+                            color: #000000;
+                            font-size: 32px;
+                            padding: 50px 0;
+                            text-align: center;
+                        }
+
+                    .price-row {
+                        width: 90%;
+                        max-width: 1100px;
+                        margin: auto;
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        grid-gap: 25px;
+                    }
+
+                    .price-col {
+                        background: #017C72;
+                        padding: 10% 15%;
+                        border-radius: 10px;
+                        color: #fff;
+                        text-align: center;
+                    }
+
+                        .price-col p {
+                            font-size: 22px;
+                        }
+
+                        .price-col h3 {
+                            font-size: 44px;
+                            margin: 20px 0 40px;
+                            font-weight: 500;
+                        }
+
+                            .price-col h3 span {
+                                font-size: 16px;
+                            }
+
+                        .price-col ul {
+                            text-align: left;
+                            margin: 20px 0;
+                            color: #ddd;
+                        }
+
+                            .price-col ul li {
+                                margin: 15px 0;
+                                size: 20px;
+                            }
+
+                        .price-col button {
+                            width: 100%;
+                            padding: 14px 0;
+                            background: transparent;
+                            color: #fff;
+                            font-size: 15px;
+                            border: 1px solid #fff;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            transition: background 0.5s;
+                        }
+
+                            .price-col button:hover {
+                                background: #008000;
+                            }
+                </style>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl" style="min-width:90% !important;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Your Plan</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">Essential Plan</div> <hr />
+                                                <h6 style="color: #7dc836; text-align:center;">£3.99 <span>/month</span></h6>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <a id="sel1" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                                </div>
+                                                    <hr />
+                                                <div style="text-align: center;">
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">Growing Plan</div> <hr />
+                                                <h6 style="color: #7dc836; text-align: center;">£9.99 <span>/month</span></h6>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <a id="sel2" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                                    </div>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">Premium Plan</div> <hr />
+                                                <h6 style="color: #7dc836; text-align: center;">£19.99 <span>/month</span></h6>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <a id="sel3" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                                    </div>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">Elite Plan</div> <hr />
+                                                <h6 style="color: #7dc836; text-align:center;">£49.99 <span>/month</span></h6>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <a id="sel4" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                                    </div>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title text-center">Gold Plan</div> <hr />
+                                                <h6 style="color: #7dc836; text-align: center;">£129.99 <span>/month</span></h6>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <a id="sel5" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                                    </div>
+                                                <hr />
+                                                <div style="text-align: center;">
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                <div>Good Plan</div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <br />
+                                        <label class="form-label text-dark">Selected Plan</label>
+                                        @Html.DropDownListFor(m => m.plans,
+                                                                                  new SelectList(ViewBag.plans, "Id", "Name"),
+                                                                                  "Select Plan", new { @class = "form-control", @id = "pln", @readonly = "readonly" })
+                                        @Html.ValidationMessageFor(j => j.plans, "", new { @class = "text-danger" })
+
+                                    </div>
+                                </div>
+                                <!--<div class="container">
+
+                                <div class="price-row">
+
+                                    <div class="price-col">
+                                        <p>Essential Plan</p>
+                                        <h3>£3.99 <span>/month</span></h3>
+                                        <ul>
+                                        </ul>
+                                        <a id="sel1" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+                                        <div>Good Plan</div>
+                                        <div>Good Plan</div>
+                                        <div>Good Plan</div>
+                                        <div>Good Plan</div>
+                                        <div>Good Plan</div>
+                                    </div>
+                                    <div class="price-col">
+                                        <p>Growing Plan</p>
+                                        <h3>£9.99 <span>/month</span></h3>
+                                        <ul>
+                                        </ul>
+                                        <a id="sel2" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+
+
+
+                                    </div>
+                                    <div class="price-col">
+                                        <p>Premium Plan</p>
+                                        <h3>£19.99 <span>/month</span></h3>
+                                        <ul>
+                                        </ul>
+                                        <a id="sel3" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+
+                                    </div>
+                                    <div class="price-col">
+                                        <p>Elite Plan</p>
+                                        <h3>£49.99 <span>/month</span></h3>
+                                        <ul>
+                                        </ul>
+                                <button id="sel4" style="background-color: #017C72;color:white;">Select</button>
+                                <a id="sel4" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+
+                                    </div>
+                                    <div class="price-col">
+                                        <p>Gold Plan</p>
+                                        <h3>£129.99 <span>/month</span></h3>
+                                        <ul>
+                                        </ul>
+                                        <a id="sel5" style="background-color: #017C72;color:white;" class="btn btn-green">Select</a>
+
+
+                                    </div>
+                                </div>
+
+                                                        </div>-->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" style="background-color: #017C72;color:white;" class="btn btn-green">Proceed</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+@*<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>*@
+
+<script src="~/assets/js/vendors/jquery-3.2.1.min.js"></script>
+<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+<script src="~/assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+@Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).on("click", '#ms', function () {
+
+        $('#exampleModal').modal('show');
+    });
+    $(document).on("click", '#sel5', function () {
+
+        $("#pln").val("Gold Plan");
+    });
+    $(document).on("click", '#sel1', function () {
+
+        $("#pln").val("Essential Plan");
+    });
+    $(document).on("click", '#sel2', function () {
+
+        $("#pln").val("Growing Plan");
+    });
+    $(document).on("click", '#sel3', function () {
+
+        $("#pln").val("Premium Plan");
+    });
+    $(document).on("click", '#sel4', function () {
+
+        $("#pln").val("Elite Plan");
+    });
+    $(document).on("change", '#ddlCountry', function () {
+        debugger;
+        var country = $(this).val();
+        var phoneCode = "";
+        if (country != "") {
+            phoneCode = country.split('-')[1];
+        }
+        $("#Phone").val(phoneCode);
+    });
+</script>
+

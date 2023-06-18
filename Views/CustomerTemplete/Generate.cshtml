@@ -1,0 +1,674 @@
+﻿@model TemplateManagementSystem.Models.CustomerTempleteModel
+@{
+    ViewBag.Title = "Customer Templete";
+
+
+}
+
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+
+    .form-control {
+        border: none;
+    }
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="row" style="margin-top:0rem">
+            <div class="col-md-12">
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body-Templates">
+        <div class="row" style="margin-top:0rem">
+            <div class="col-md-12 col-lg-12">
+                @if (!string.IsNullOrEmpty(Convert.ToString(TempData["Message"])))
+                {
+                    if (Convert.ToString(TempData["Message"]).StartsWith("Success"))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Index", "customerTemplete", FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.Id)
+            @*<table style="width:100% !important;">
+                <tr>
+                    <td style="width:20%;padding-left:15px;"><b>Name</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Department</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Department, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Location</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>*@
+            <br />
+            @*<div class="row" style="margin-top:0rem">
+
+                            <div class="col-md-8">
+
+                            </div>
+                            <div class="col-md-4">
+                                <div class="profile-pic">
+                                    <img src="~/pics/2.png" class="profile-pic-img"  style="border-radius:1rem"/>
+
+                                </div>
+                                <br />
+
+                                <div class="row" style="margin-top:0rem">
+                                    <div class="col-md-3" style="padding-top:5px">
+                                        <p>Date:</p>
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(s => s.datetimestring, new { @class = "form-control", @type = "date" })
+
+                                    </div>
+                                    <br />
+                                    <div class="col-md-3">
+
+                                        <label class="form-label" style="padding-top:5px">Invoice Id:</label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        @Html.TextBoxFor(s => s.InvoiceId, new { @class = "form-control sm", @type = "text" })
+
+                                    </div>
+                                </div>
+
+
+
+            Thokar NaIYAZ bAIG
+            Lahore, Pujab
+            Pakistan
+            +9211408502
+            arslanshorkot@gmail.com
+                            </div>
+                        </div>*@
+            <style>
+                .myrow {
+                }
+
+                    .myrow .mycol-md-4 {
+                        width: 30%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-6 {
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-8 {
+                        width: 66%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-3 {
+                        width: 25%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-9 {
+                        width: 75%;
+                        float: left;
+                    }
+
+                    .myrow::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+
+                .row1 {
+                }
+
+                    .row1 .col1 {
+                        float: left;
+                        width: 65%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col111 {
+                        float: left;
+                        width: 59%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col11 {
+                        float: left;
+                        width: 30%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col3 {
+                        float: left;
+                        width: 23%;
+                    }
+
+
+
+                    .row1::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+
+                #myc th td {
+                    border: none;
+                }
+            </style>
+            <br />
+            <style>
+                #mydiv {
+                    border: none;
+                }
+
+                    #mydiv tr td {
+                        border: none;
+                    }
+            </style>
+            <table style="width:100% !important;" id="mydiv">
+                <tr>
+                    <td width="40%">
+                        <div style="text-align:center">
+                            <div class="profile-pic">
+                                @if (@Model.userProfile == null)
+                                {
+                                    <img src="~/assets/images/defaultimage.png" height="250" width="300" style="width:70%" />
+                                }
+                                else
+                                {
+                                     <img src="~/pics/@Model.userProfile" height="250" width="300" style="width:70%" />
+                                }
+
+                            </div>
+                            <br />
+                            <p>@Model.UserName</p>
+                            <p>@Model.userAdress , office No @Model.useroffice</p>
+                            <p>@Model.userCountry</p>
+                            <p>@Model.userPhone</p>
+                            <p>@Model.useremail</p>
+
+
+
+                        </div>
+                    </td>
+                    <td width="30%">
+                    </td>
+                    <td>
+                        <div style="text-align:center">
+
+                            <input type="text" @Html.TextBoxFor(s => s.CustomerName, new { @class = "form-control highlighted text-box", @type = "text", @placeholder = "Customer Name" })
+                            <input type="text" @Html.TextAreaFor(s => s.CustomerAddress, new { @class = "form-control highlighted text-box", @placeholder = "Customer Address", @rows = "7" })
+
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
+
+
+
+
+            <br />
+
+            @*<table style="width:100% !important;">
+                <tr>
+                    <td style="width:10%;padding: 10px;">
+                        <label>For</label>
+                        <br />
+                        <label>Address</label>
+                    </td>
+                    <td style="">
+                        @Html.TextBoxFor(s => s.For, new { @class = "form-control sm", @type = "text" })
+                        @Html.TextBoxFor(s => s.Address, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+            </table>*@
+
+            <br />
+
+            <table id="sheetDetail" style="width:100% !important;">
+                <thead>
+                    <tr style="background-color: #a8dcd8">
+                        <th style="width:10%;padding: 15px;">Service</th>
+                        <th style="width:50%;padding: 15px;">Description</th>
+                        <th style="width:20%;padding: 15px;">Price</th>
+                        <th style="width:10%;padding: 15px;">Quantity</th>
+                        <th style="width:20%;padding: 15px;">Totall</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.item.Count; i++)
+                    {
+                        <tr>
+                            <td> @Html.TextBoxFor(s => s.item[i].service, new { @class = "form-control highlighted text-box" })</td>
+                            <td> @Html.TextBoxFor(s => s.item[i].decription, new { @class = "form-control highlighted text-box" })</td>
+                            <td> @Html.TextBoxFor(s => s.item[i].price, new { @class = "form-control price", @type = "number" })</td>
+                            <td> @Html.TextBoxFor(s => s.item[i].quantity, new { @class = "form-control quantity", @type = "number" })</td>
+                            <td> @Html.TextBoxFor(s => s.item[i].totall, new { @class = "form-control", @type = "number", @readonly = "readonly" })</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+            <style>
+                #mydiv2 {
+                    border: none;
+                }
+
+                    #mydiv2 tr td {
+                        border: none;
+                    }
+            </style>
+
+            <table style="width:100% !important;" id="mydiv2">
+                <tr>
+                    <td style="width:70%">
+                    </td>
+                    <td>
+                        <div class="row1" style="margin-top:0rem;display:none">
+                            <div class="col11" style="padding-top:5px">
+                                <p>Sub Totals:</p>
+                            </div>
+                            <div class="col111">
+
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+
+                                <label class="form-label" style="padding-top:5px">Sub Totals:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.subtotall, new { @class = "form-control", @type = "text", @id = "subtotall" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+
+                                <label class="form-label" style="padding-top:5px">Discount %:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.dscount, new { @class = "form-control sm highlighted text-box", @type = "text", @id = "discount" })
+
+                            </div>
+
+
+                        </div>
+
+
+                        <div class="row1">
+                            <div class="col11">
+                                <label class="form-label" style="padding-top:5px">Total:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.totall, new { @class = "form-control sm", @type = "text", @id = "totall" })
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </td>
+                </tr>
+            </table>
+
+            <div class="row">
+                <div class="col-md-12">
+                    @if (string.IsNullOrEmpty(ViewBag.pre))
+                    {
+
+                        <button type="button" id="btnAddNewRow" class="btn btn-success">Add New</button>
+                        @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                        <button type="submit" class="btn btn-success">Generate</button>
+                        if (Model.Id > 0)
+                        {
+                            <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+                        }
+                        <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+                    </div>
+            </div>
+            <style>
+                #emailModal .form-control {
+                    border: 1px solid;
+                }
+            </style>
+            <!--<div id="emailModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">-->
+
+                    <!-- Modal content-->
+                    <!--<div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Email</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Email
+                                    @Html.TextBoxFor(s => s.Email, new { @class = "form-control", @required = "required", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Subject
+                                    @Html.TextBoxFor(s => s.Subject, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    CC
+                                    @Html.TextBoxFor(s => s.CC, new { @class = "form-control", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.CC, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Body
+                                    @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Generate</button>
+                            @if (Model.Id > 0)
+                            {
+                                <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>-->
+            
+            <style>
+                #mycop {
+                    display: none
+                }
+            </style>
+            @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+        }
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        var subt = 0;
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+        $("#sheetDetail").on("change", ".price", function () {
+
+
+
+
+
+            var txt = $(this).val();
+            var quantity = $(this).closest('td').next().find('input[type="number"]').val();
+
+            //var id = $(this).closest('td').next().find('input[type="number"]').attr('id');
+            var nextel = $(this).closest('td').next().find('input[type="number"]');
+            //console.log(nextel);
+            //$(nextel).closest('td').next().find('input[type="number"]').attr('id')
+            $(nextel).closest('td').next().find('input[type="number"]').val(quantity * txt);
+            //alert(nextId);
+
+
+
+
+
+
+
+
+            var numItems = $('#sheetDetail >tbody >tr').length
+
+            let spData = [];
+            var subtotall = 0;
+            for (let i = 0; i < numItems; i++) {
+
+                var val = $("#item_" + i + "__totall").val();
+
+                subtotall = parseFloat(subtotall) + +parseFloat(val);
+
+
+            }
+
+            $("#subtotall").val(subtotall);
+            subt = subtotall;
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#discount").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subtotall;
+
+
+
+
+
+            }
+         
+
+
+            totall = subtotall + shipmentam - taxam;
+            $("#totall").val(totall);
+
+
+        });
+
+
+        $("#sheetDetail").on("change", ".quantity", function () {
+
+
+            var txt = $(this).val();
+            var price = $(this).closest('td').prev().find('input[type="number"]').val();
+
+            //var id = $(this).closest('td').next().find('input[type="number"]').attr('id');
+            var nextel = $(this).closest('td').next().find('input[type="number"]').val(txt * price);
+
+            ////console.log(nextel);
+            ////$(nextel).closest('td').next().find('input[type="number"]').attr('id')
+            //$(nextel).closest('td').next().find('input[type="number"]').val(quantity * txt);
+            ////alert(nextId);
+
+
+            var numItems = $('#sheetDetail >tbody >tr').length
+
+            let spData = [];
+            var subtotall = 0;
+            for (let i = 0; i < numItems; i++) {
+
+                var val = $("#item_" + i + "__totall").val();
+
+                subtotall = parseFloat(subtotall) + +parseFloat(val);
+
+
+            }
+
+            $("#subtotall").val(subtotall);
+            subt = subtotall;
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#discount").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subtotall;
+
+
+
+
+
+            }
+
+
+
+            totall = subtotall + shipmentam - taxam;
+            $("#totall").val(totall);
+
+
+
+
+
+        });
+
+
+        $("#discount").change(function () {
+
+            var totall = 0;
+            var taxam = 0;
+            var shipmentam = 0;
+            var tax = $("#discount").val();
+            if (tax === 0) {
+
+                taxam = 0;
+            }
+
+            else {
+                taxam = tax / 100 * subt;
+
+
+
+
+
+            }
+          
+
+
+            totall = subt + shipmentam - taxam;
+            $("#totall").val(totall);
+            
+
+
+        });
+        $(document).on("click", '#btnAddNewRow', function () {
+            var totalRows = $('#sheetDetail >tbody >tr').length;
+            if (totalRows >= 20) {
+                $('#btnAddNewRow').hide();
+                setTimeout(function () {
+                    alert("Number of rows exceeded");
+                }, 2000);
+                return;
+            }
+
+            var newRow = `<tr>
+    <td>
+      <input class="form-control text-box highlighted" id="item_`+ totalRows + `__service" name="item[` + totalRows + `].service" type="text" value="">
+    </td>
+    <td>
+      <input class="form-control text-box highlighted" id="item_`+ totalRows + `__description" name="item[` + totalRows + `].description" type="text" value="">
+    </td>
+    <td>
+      <input class="form-control price" id="item_`+ totalRows + `__price" name="item[` + totalRows + `].price" type="number" value="0">
+    </td>
+    <td>
+      <input class="form-control quantity" id="item_`+ totalRows + `__quantity" name="item[` + totalRows + `].quantity" type="number" value="0">
+    </td>
+    <td>
+      <input class="form-control" id="item_`+ totalRows + `__total" name="item[` + totalRows + `].total" type="number" readonly="readonly" value="0">
+    </td>
+  </tr>`;
+            $('#sheetDetail > tbody').append(newRow);
+
+            // Add event listener to highlight new inputs
+            var newTextBoxes = document.querySelectorAll("#sheetDetail input.text-box");
+            newTextBoxes.forEach(function (textBox) {
+                textBox.addEventListener("input", function () {
+                    if (textBox.value === "") {
+                        textBox.classList.add("highlighted");
+                    } else {
+                        textBox.classList.remove("highlighted");
+                        textBox.classList.add("form-control");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

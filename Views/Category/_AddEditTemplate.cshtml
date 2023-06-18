@@ -1,0 +1,51 @@
+﻿@model TemplateManagementSystem.Models.TemplateCategoryViewModel
+    @using Newtonsoft.Json;
+@using (Html.BeginForm("AddEditTemplateCategory", "Category", FormMethod.Post, new { @id = "frmAddEditCategory" }))
+{
+    <div class="row mb-3">
+        <div class="col-md-12">
+            @Html.HiddenFor(s => s.Id)
+            Category
+            @Html.DropDownListFor(s => s.CategoryId, new SelectList(ViewBag.lstCategories, "Id", "Name"), "Please Select", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+            Template
+            <select class="form-control" id="ddlTemplates" name="TemplateIds" multiple>
+                @foreach (var item in Model.Templates)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+            @*@Html.DropDownListFor(s => s.TemplateIds,Model.Templates , "Please Select", new { @class = "form-control",@id="ddlTemplates",@multiple="multiple" })*@
+            @Html.ValidationMessageFor(m => m.TemplateIds, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        @if (Model.Id > 0)
+        {
+            <input type="submit" class="btn btn-success" name="name" value="Update" />
+        }
+        else
+        {
+            <input type="submit" class="btn btn-success" name="name" value="Save" />
+        }
+
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+
+}
+
+<script>
+    $(document).ready(function () {
+        $("#ddlTemplates").select2();
+        debugger;
+        var json = "@Html.Raw(Model.TemplateSelected)";
+        var values = json.split(",");
+        $("#ddlTemplates").val(values);
+    });
+
+
+</script>

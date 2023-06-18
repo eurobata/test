@@ -1,0 +1,445 @@
+﻿@{
+    ViewBag.Title = "A/C Quote Form";
+}
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@model TemplateManagementSystem.Models.ACQuote
+@Html.Partial("_css")
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    .form-control {
+        border: none;
+    }
+</style>
+
+
+
+<div class="" style="padding-left:2rem;padding-right:2rem">
+    @using (Html.BeginForm("Index", "ACQuote", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="200" height="100" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="200" height="100" />
+
+                }
+
+
+            </div>
+            <div class="col-xs-6" style="text-align:right">
+
+
+
+                <h3>A/C Quote Form</h3>
+
+            </div>
+
+        </div>
+        <br />
+        <table style="width:100% !important;">
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; font-weight: bold">
+                    Unique Id
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.uniqueid, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; font-weight: bold">
+                    Date
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.datestr, new { @class = "form-control sm", @type = "date" })
+
+
+                </td>
+
+            </tr>
+
+
+        </table>
+        <br />
+
+        <table style="width:100% !important;">
+            <tr>
+                <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+
+                    Location of Installation
+                </td>
+            </tr>
+            <tr>
+
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Address
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.address, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                    Customer Information
+                </td>
+            </tr>
+            <tr>
+
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Name
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.name, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+
+
+        </table>
+        <table style="width:100% !important;">
+            <tr>
+                <td colspan="4" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                    Questions
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Location of A/C
+                </td>
+                <td colspan="3">
+                    @Html.TextBoxFor(s => s.locationAc, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    New install or Replacement
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.replacement, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Extra Pipe Work Needed
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExtraPipe, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Size of A/C
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.sizeOfAc, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Mounting Needed
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExtraPipe, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Is A/C OR B2B Install
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.b2b, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Internal Capping Required
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.capping, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Wall Structure Material
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.wsm, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    New  Electrical Feed Req
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.nefr, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Existing Piping/Drain be Used
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.drain, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    RCD/RCBO Needed
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.rcdRcbo, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                    Additional Info Needed For Installation
+                </td>
+                <td colspan="3">
+                    @Html.TextBoxFor(s => s.addtionalinfo, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+        </table><table style="width:100% !important;">
+            <tr>
+                <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                    Photos
+                </td>
+            </tr>
+            <tr>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image1))
+                    {
+
+                        <img width="300" id="im1" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im1" src="@Server.MapPath("~/pics/"+Model.image1+"")" />
+                    }
+
+                </td>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image2))
+                    {
+
+                        <img width="300" id="im2" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im2" src="@Server.MapPath("~/pics/"+Model.image2+"")" />
+                    }
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image1Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 1 Description" })
+
+                </td>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image2Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 1 Description" })
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image3))
+                    {
+
+                        <img width="300" id="im3" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im3" src="@Server.MapPath("~/pics/"+Model.image3+"")" />
+                    }
+
+                </td>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image4))
+                    {
+
+                        <img width="300" id="im4" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im4" src="@Server.MapPath("~/pics/"+Model.image4+"")" />
+                    }
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image3Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 3 Description" })
+
+                </td>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image4Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 4 Description" })
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image5))
+                    {
+
+                        <img width="300" id="im5" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im5" src="@Server.MapPath("~/pics/"+Model.image5+"")" />
+                    }
+
+                </td>
+
+                <td>
+                    @if (string.IsNullOrEmpty(Model.image6))
+                    {
+
+                        <img width="300" id="im6" />
+                    }
+                    else
+                    {
+
+                        <img width="300" id="im6" src="@Server.MapPath("~/pics/"+Model.image6+"")" />
+                    }
+
+                </td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image5Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 5 Description" })
+
+                </td>
+
+                <td>
+                    @Html.TextAreaFor(s => s.image6Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 6 Description" })
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <br />
+
+
+
+    }
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        var loadFile = function (event, im) {
+            var output = document.getElementById(im);
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+
+    </script>
+}
+
+
+

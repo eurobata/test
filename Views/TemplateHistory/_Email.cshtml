@@ -1,0 +1,42 @@
+﻿@model TemplateManagementSystem.Models.EmailSetup
+@using (Html.BeginForm("email", "templatehistory", FormMethod.Post, new { }))
+{
+    @Html.HiddenFor(s => s.id)
+    @Html.HiddenFor(s => s.templete)
+    <div class="rowALL">
+        <div class="col-md-12">
+            Email
+            @*<input type="email" required="required" class="form-control" name="Email" />*@
+            @Html.TextBoxFor(s => s.Email, new { @class="form-control",@type="email", @required = "required" })
+        </div>
+    </div>
+    <div class="rowALL">
+        <div class="col-md-12">
+            Subject
+            @*<input type="text" class="form-control" name="Subject" />*@
+            @Html.TextBoxFor(s => s.Subject, new { @class = "form-control"})
+        </div>
+    </div>
+    <div class="rowALL">
+        <div class="col-md-12">
+            CC
+
+            @*<input type="email" class="form-control" name="CC" />*@
+            @Html.TextBoxFor(s => s.CC, new { @class = "form-control",@type="email" })
+        </div>
+    </div>
+    <div class="rowALL">
+        <div class="col-md-12">
+            Body
+            @*<textarea rows="4" name="EmailBody" class="form-control"></textarea>*@
+            @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control",@rows="4" })
+
+        </div>
+    </div>
+    <div class="rowALL mt-3">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-success">Generate</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+}

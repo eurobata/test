@@ -1,0 +1,617 @@
+﻿@model TemplateManagementSystem.Models.PressureWashingViewModel
+@{
+    ViewBag.Title = "Pressure Washing Estimate Sheet";
+    
+}
+
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+    .form-control{
+        border:none;
+    }
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+   
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="row"  style="margin-top:0rem">
+            <div class="col-md-12">
+                <h3>Pressure Washing Estimate Templete</h3>
+            </div>
+        </div>
+    </div>
+    <div class="card-body-Templates">
+        <div class="row" style="margin-top:0rem">
+            <div class="col-md-12 col-lg-12">
+                @if (!string.IsNullOrEmpty(Convert.ToString(TempData["Message"])))
+                {
+                    if (Convert.ToString(TempData["Message"]).StartsWith("Success"))
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="alertMessage">
+                            <strong>@(Convert.ToString(TempData["Message"]))</strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Index", "pressureWashing", FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.Id)
+            @*<table style="width:100% !important;">
+                <tr>
+                    <td style="width:20%;padding-left:15px;"><b>Name</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Department</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Department, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 20%; padding-left: 15px;"><b>Location</b></td>
+                    <td style="width:80%;">
+                        @Html.TextBoxFor(s => s.Location, new { @class = "form-control" })
+                    </td>
+                </tr>
+            </table>*@
+            <br />
+            @*<div class="row" style="margin-top:0rem">
+
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-4">
+                    <div class="profile-pic">
+                        <img src="~/pics/2.png" class="profile-pic-img"  style="border-radius:1rem"/>
+
+                    </div>
+                    <br />
+
+                    <div class="row" style="margin-top:0rem">
+                        <div class="col-md-3" style="padding-top:5px">
+                            <p>Date:</p>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(s => s.datetimestring, new { @class = "form-control", @type = "date" })
+
+                        </div>
+                        <br />
+                        <div class="col-md-3">
+
+                            <label class="form-label" style="padding-top:5px">Invoice Id:</label>
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextBoxFor(s => s.InvoiceId, new { @class = "form-control sm", @type = "text" })
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>*@
+            <style>
+                .myrow {
+                }
+
+                    .myrow .mycol-md-4 {
+                        width: 30%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-6 {
+                        width: 50%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-8 {
+                        width: 66%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-3 {
+                        width: 25%;
+                        float: left;
+                    }
+
+                    .myrow .mycol-md-9 {
+                        width: 75%;
+                        float: left;
+                    }
+
+                    .myrow::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+
+                .row1 {
+                }
+
+                    .row1 .col1 {
+                        float: left;
+                        width: 65%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col111 {
+                        float: left;
+                        width: 59%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col11 {
+                        float: left;
+                        width: 30%;
+                        margin: 0.5rem;
+                    }
+
+                    .row1 .col3 {
+                        float: left;
+                        width: 23%;
+                    }
+
+
+
+                    .row1::after {
+                        content: "";
+                        display: block;
+                        clear: both;
+                    }
+            </style>
+      
+            <div class="row1" style="margin-top:0rem">
+
+                <div class="col1">
+
+                </div>
+                <div class="col11">
+                    <div class="profile-pic">
+
+                        @if (@Model.userProfile == null)
+                        {
+                            <img src="~/assets/images/defaultimage.png" class="profile-pic-img" style="border-radius:1rem" />
+                        }
+                        else
+                        {
+                            <img src="~/pics/@Model.userProfile" class="profile-pic-img" style="border-radius:1rem" />
+                        }
+
+                    </div>
+                    <br />
+
+                    <div class="row1" style="margin-top:0rem">
+                        <div class="col3" style="padding-top:15px">
+
+                            <label class="form-label" style="padding-top:5px">Date:</label>
+
+                        </div>
+
+
+                        <div class="col1">
+                            @Html.TextBoxFor(s => s.datetimestring, new { @class = "form-control", @type = "date" })
+
+                        </div>
+                        <br />
+                        <div class="col3" style="margin-top:15px">
+
+                            <label class="form-label" style="padding-top:5px">Invoice Id:</label>
+                        </div>
+                        <div class="col1">
+                            <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.InvoiceId, new { @class = "form-control sm", @type = "text" })
+
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+            <br />
+
+            <table style="width:100% !important;">
+                <tr>
+                    <td style="width:10%;padding: 10px;">
+                        <label>For</label>
+                        <br />
+                        <label>Address</label>
+                    </td>
+                    <td style="">
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.For, new { @class = "form-control sm", @type = "text" })
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.Address, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+            </table>
+            <br />
+
+            <table id="sheetDetail" style="width:100% !important;">
+                <thead>
+                    <tr style="background-color: #a8dcd8">
+                        <th style="width:20%;padding: 15px;">Item</th>
+                        <th style="width:34.2%;padding: 15px;">Description</th>
+                        <th style="width:20%;padding: 15px;">Price</th>
+                        <th style="width:10%;padding: 15px;">Quantity</th>
+                        <th style="width:30%;padding: 15px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.templetItems.Count; i++)
+                    {
+                        <tr>
+                            <td> @Html.TextBoxFor(s => s.templetItems[i].item, new { @class = "form-control highlighted text-box" })</td>
+                            <td> @Html.TextBoxFor(s => s.templetItems[i].description, new { @class = "form-control highlighted text-box" })</td>
+                            <td> @Html.TextBoxFor(s => s.templetItems[i].price, new { @class = "form-control price", @type = "number" })</td>
+                            <td> @Html.TextBoxFor(s => s.templetItems[i].quantity, new { @class = "form-control quantity", @type = "number" })</td>
+                            <td> @Html.TextBoxFor(s => s.templetItems[i].ammount, new { @class = "form-control", @type = "number", @readonly = "readonly" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <table style="width:100% !important;">
+                <tr>
+                    <td style="width:74.2%">
+                        <label class="form-label">&nbsp; Notes</label>
+                        <input type="text" class="highlighted text-box" @Html.TextAreaFor(s => s.Notes, new { @class = "form-control sm" })
+
+                    </td>
+                    <td>
+                        <div class="row1" style="margin-top:0rem">
+                            <div class="col11" style="padding-top:5px">
+                                <p>Sub Totals:</p>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.subtotall, new { @class = "form-control", @type = "text", @id = "subtotall" })
+
+                            </div>
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+
+                                <label class="form-label" style="padding-top:5px">Tax %:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.tax, new { @class = "form-control sm highlighted text-box", @type = "text", @id = "tax" })
+
+                            </div>
+
+
+                        </div>
+                        <div class="row1">
+                            <div class="col11">
+                                <label class="form-label" style="padding-top:5px">Total:</label>
+                            </div>
+                            <div class="col111">
+                                @Html.TextBoxFor(s => s.totall, new { @class = "form-control sm", @type = "text", @id = "totall" })
+
+                            </div>
+
+
+                        </div>
+
+
+
+
+                    </td>
+                </tr>
+            </table>
+            <br />
+            <div class="">
+                <label>Prepared By</label>
+                <input type="text"  @Html.TextBoxFor(s => s.PreparedBy, new { @class = "form-control sm highlighted text-box", @type = "text" })
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @if (string.IsNullOrEmpty(ViewBag.pre))
+                    {
+
+                                        <button type="button" id="btnAddNewRow" class="btn btn-success">Add New</button>
+                        @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                        <button type="submit" class="btn btn-success">Generate</button>
+                        if (Model.Id > 0)
+                        {
+                            <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                        }
+                    }
+                        <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+                    </div>
+            </div>
+            <style>
+                #emailModal .form-control {
+                    border: 1px solid;
+                }
+            </style>
+            <!--<div id="emailModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">-->
+
+                    <!-- Modal content-->
+                    <!--<div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Email</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Email
+                                    @Html.TextBoxFor(s => s.Email, new { @class = "form-control", @required = "required", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Subject
+                                    @Html.TextBoxFor(s => s.Subject, new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    CC
+                                    @Html.TextBoxFor(s => s.CC, new { @class = "form-control", @type = "email" })
+                                    @Html.ValidationMessageFor(m => m.CC, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Body
+                                    @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Generate</button>
+                            @if (Model.Id > 0)
+                            {
+                                <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>-->
+        
+            <style>
+                #mycop {
+                    display: none
+                }
+            </style>
+            @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+        }
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+
+        var subt = 0;
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+        $("#sheetDetail").on("change", ".price", function () {
+
+
+            var txt = $(this).val();
+            var quantity = $(this).closest('td').next().find('input[type="number"]').val();
+
+            //var id = $(this).closest('td').next().find('input[type="number"]').attr('id');
+            var nextel = $(this).closest('td').next().find('input[type="number"]');
+            //console.log(nextel);
+            //$(nextel).closest('td').next().find('input[type="number"]').attr('id')
+            $(nextel).closest('td').next().find('input[type="number"]').val(quantity * txt);
+            //alert(nextId);
+
+
+
+            var numItems = $('#sheetDetail >tbody >tr').length
+
+            let spData = [];
+            var subtotall = 0;
+            for (let i = 0; i < numItems; i++) {
+
+                var val = $("#templetItems_" + i + "__ammount").val();
+
+                subtotall = parseFloat(subtotall) + +parseFloat(val);
+
+
+            }
+
+            $("#subtotall").val(subtotall);
+            subt = subtotall;
+            
+
+            var tax = $("#tax").val();
+            if (tax === 0) {
+
+                $("#totall").val(subtotall);
+
+            }
+
+            else {
+                var ck = tax / 100 * subtotall;
+                subtotall = +subtotall + ck
+                $("#totall").val(subtotall);
+
+
+
+            }
+
+
+
+        });
+        $("#tax").change(function () {
+
+            var tax = $("#tax").val();
+            if (tax === 0) {
+
+                $("#totall").val(subt);
+
+            }
+
+            else {
+                var ck = tax / 100 * subt;
+                var subst = +subt + ck
+                $("#totall").val(subst);
+
+
+
+            }
+
+        });
+        $("#sheetDetail").on("change", ".quantity", function () {
+
+
+            var txt = $(this).val();
+            var price = $(this).closest('td').prev().find('input[type="number"]').val();
+            
+            //var id = $(this).closest('td').next().find('input[type="number"]').attr('id');
+            var nextel = $(this).closest('td').next().find('input[type="number"]').val(txt * price);
+
+            ////console.log(nextel);
+            ////$(nextel).closest('td').next().find('input[type="number"]').attr('id')
+            //$(nextel).closest('td').next().find('input[type="number"]').val(quantity * txt);
+            ////alert(nextId);
+
+            var numItems = $('#sheetDetail >tbody >tr').length
+
+            let spData = [];
+            var subtotall = 0;
+            for (let i = 0; i < numItems; i++) {
+                var val = $("#templetItems_" + i + "__ammount").val();
+
+                subtotall = parseFloat(subtotall) + +parseFloat(val);
+
+
+            }
+
+            $("#subtotall").val(subtotall);
+
+            subt = subtotall;
+
+            var tax = $("#tax").val();
+            if (tax === 0) {
+
+                $("#totall").val(subtotall);
+
+            }
+
+            else {
+                var ck = tax / 100 * subtotall;
+                subtotall = +subtotall + ck
+                $("#totall").val(subtotall);
+
+
+
+            }
+              
+
+
+
+
+
+        });
+
+        $(document).on("click", '#btnAddNewRow', function () {
+            var totalRows = $('#sheetDetail >tbody >tr').length;
+            if (totalRows >= 20) {
+                $('#btnAddNewRow').hide();
+                setTimeout(function () {
+                    alert("Number of rows exceeded");
+                }, 2000);
+                return;
+            }
+            var newRow = `<tr>
+        <td>
+            <input class="form-control text-box" id="templetItems_${totalRows}__item" name="templetItems[${totalRows}].item" type="text" value="">
+        </td>
+        <td>
+            <input class="form-control text-box" id="templetItems_${totalRows}__description" name="templetItems[${totalRows}].description" type="text" value="">
+        </td>
+        <td>
+            <input class="form-control price text-box" id="templetItems_${totalRows}__price" name="templetItems[${totalRows}].price" type="number" value="0">
+        </td>
+        <td>
+            <input class="form-control quantity text-box" id="templetItems_${totalRows}__quantity" name="templetItems[${totalRows}].quantity" type="number" value="0">
+        </td>
+        <td>
+            <input class="form-control" id="templetItems_${totalRows}__amount" name="templetItems[${totalRows}].amount" type="number" readonly="readonly" value="0">
+        </td>
+    </tr>`;
+            $('#sheetDetail > tbody').append(newRow);
+
+            // Highlight the new row
+            const newRowTextBoxes = $('#sheetDetail > tbody > tr:last-child .text-box');
+            newRowTextBoxes.each(function () {
+                if ($(this).val() === "") {
+                    $(this).addClass("highlighted");
+                } else {
+                    $(this).removeClass("highlighted");
+                    $(this).addClass("form-control");
+                }
+            });
+        });
+
+
+        // Remove the previous textbox event listener
+        $(".text-box").off("input");
+
+        // Add the event listener to all textbox inputs
+        const allTextBoxes = document.querySelectorAll(".text-box");
+        allTextBoxes.forEach(function (textBox) {
+            textBox.addEventListener("input", function () {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+
+    </script>
+}

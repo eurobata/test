@@ -1,0 +1,384 @@
+﻿@model TemplateManagementSystem.Models.Template5ViewModel
+@{
+    ViewBag.Title = "Incident Report";
+}
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+
+    .displayNone {
+        display: none !important;
+    }
+</style>
+<div class="card">
+    <div class="card-bodyHI">
+        @using (Html.BeginForm("Index", "Template5", FormMethod.Post, new { }))
+        {
+            @Html.HiddenFor(s => s.Id)
+            <table style="width:100% !important;">
+                <tr>
+                    <td style="width:25% !important; padding-left:15px;">Name/Group</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.Name, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important; padding-left:15px;">Date</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.DateStr, new { @class = "form-control", @type = "date" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:25% !important; padding-left:15px;">Location</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.Location, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important; padding-left:15px;">Co-ordinator's Name</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.CoordinatorName, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:25% !important; padding-left:15px;">Activity</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.Activity, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important; padding-left:15px;">No. Of Leaders</td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.NoOfLeaders, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25% !important; padding-left: 15px; background-color: #a8dcd8;">Analysis</td>
+                    <td colspan="3" style="padding-left: 15px; background-color: #a8dcd8;">Description</td>
+                </tr>
+                <tr>
+                    <td style="width:25% !important; padding-left:15px;">
+                        <b>Risks Accident, Injury, Damage and other forms of loss</b>
+                    </td>
+                    <td colspan="3">
+                        @Html.TextAreaFor(s => s.RiskAnalysis, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width: 25% !important; padding-left: 15px;">
+                        <b>Casual Factors, Hazards, Perils, Dangers</b>
+                    </td>
+                    <td style="width: 25% !important;padding-left: 15px; background-color: #a8dcd8;">People</td>
+                    <td style="width: 25% !important;padding-left: 15px; background-color: #a8dcd8;">Equipment</td>
+                    <td style="width: 25% !important;padding-left: 15px; background-color: #a8dcd8;">Environment</td>
+                </tr>
+                <tr>
+
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.CasualFactorPeople, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.CasualFactorEquipment, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextBoxFor(s => s.CasualFactorEnvironment, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width:25% !important;">
+                        <table style="width:100%;border:none;">
+                            <tr>
+                                <td rowspan="2" style="width: 50%;padding:15px; writing-mode: vertical-rl;">
+                                    Risk Management
+                                </td>
+                                <td style="width: 50%; padding: 15px; writing-mode: vertical-rl; ">
+                                    Normal Operations
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%; padding: 15px; border: none; writing-mode: vertical-rl; ">
+                                    Emergency
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.NormalOperationPeople, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.NormalOperationEquipment, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.NormalOperationEnvironment, new { @class = "form-control" })
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.EmergencyPeople, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.EmergencyEquipment, new { @class = "form-control" })
+                    </td>
+                    <td style="width:25% !important;">
+                        @Html.TextAreaFor(s => s.EmergencyEnvironment, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25% !important; padding-left: 15px;">
+                        Skills Required By Leaders
+                    </td>
+                    <td colspan="3">
+                        @Html.TextAreaFor(s => s.SkillsRequiredByLeaders, new { @class = "form-control" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 25% !important; padding-left: 15px;">
+                        <b>Final Decision</b> on implementing activity
+                    </td>
+                    <td colspan="3">
+                        <table style="width:100% !important;">
+                            <tr>
+                                <td style="width: 25% !important; padding-left: 15px;">
+                                    <b>Form Completed By</b>
+                                </td>
+                                <td style="width: 25% !important;">
+                                    <div>
+                                        <img src="@Model.FormCompletedBy" height="50" id="imgCompletedBy" class="@(string.IsNullOrEmpty(Model.FormCompletedBy) ? "displayNone" :"")" />
+                                    </div>
+                                    <p id="pCompletedBy" style="margin-bottom:10px;line-height:0.5;">------------------------ </p>
+                                </td>
+                                <td style="width: 25% !important; padding-left: 15px;">
+                                    <b>Date</b>
+                                </td>
+                                <td style="width: 25% !important;">
+                                    @Html.TextBoxFor(s => s.FormCompletionDateStr, new { @class = "form-control", @type = "date" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25% !important; padding-left: 15px;">
+                                    <b>Choose One</b>
+                                </td>
+                                <td style="width: 25% !important;">
+                                    @Html.RadioButtonFor(s => s.ActivityStatus, true, new { }) Yes
+                                </td>
+                                <td colspan="2" style="padding-left: 15px;">
+                                    @Html.RadioButtonFor(s => s.ActivityStatus, false, new { }) No
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20% !important; padding-left: 15px;">
+                                    <b>Approved By</b>
+                                    @Html.HiddenFor(s => s.ApprovedBy, new { @id = "hdfApprovedBy" })
+                                    @Html.HiddenFor(s => s.FormCompletedBy, new { @id = "hdfFormCompletedBy" })
+                                </td>
+                                <td colspan="3" style="padding-left: 15px;">
+                                    <div>
+                                        <img src="@Model.ApprovedBy" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.ApprovedBy) ? "displayNone" :"")" />
+                                    </div>
+                                    <p id="pSignature" style="margin-bottom:10px;line-height:0.5;">----------------------------- </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25% !important; padding-left: 15px;">
+                                    <b>Position</b>
+                                </td>
+                                <td style="width: 25% !important;">
+                                    @Html.TextBoxFor(s => s.Position, new { @class = "form-control" })
+                                </td>
+                                <td style="width: 25% !important; padding-left: 15px;">
+                                    <b>Date</b>
+                                </td>
+                                <td style="width: 25% !important;">
+                                    @Html.TextBoxFor(s => s.ApprovedDateStr, new { @class = "form-control", @type = "date" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" id="btnConfirm" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate</button>
+                    <a href="/" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+
+            <div id="emailModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Email</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Email
+                                    @Html.TextBoxFor(s => s.Email, new { @class = "form-control", @required = "required", @type = "email" })
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Subject
+                                    @Html.TextBoxFor(s => s.Subject, new { @class = "form-control" , @required = "required" })
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    CC
+                                    @Html.TextBoxFor(s => s.Cc, new { @class = "form-control", @type = "email" })
+                                </div>
+                            </div>
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    Body
+                                    @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Generate</button>
+                            @if (Model.Id > 0)
+                            {
+                                <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+                            <style>
+                                #mycop {
+                                    display: none
+                                }
+                            </style>
+                            @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="signModel" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Signature</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="rowALL">
+                                <div class="col-md-12">
+                                    <input type="hidden" id="hdfImageType" value="" />
+                                    <canvas id="approvedBy" height="100" width="460" style="border: 1px solid black;"></canvas>
+                                </div>
+                                <div class="col-md-12">
+                                    <span id="spAgreement" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="btnClearSignature" class="btn btn-primary">Clear</button>
+                            <button type="button" id="btnSign" class="btn btn-primary">Accept</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+    </div>
+    <script>
+
+    </script>
+</div>
+@section scripts{
+
+        <script type="text/javascript">
+
+            $(document).on("click", '#mycopy', function () {
+
+                $("#mycop").val("Copy");
+
+            });
+        </script>
+    
+    <script src="~/Scripts/signature_pad.min.js"></script>
+    <script type="text/javascript">
+        $(document).on("click", "#pSignature", function () {
+            $("#hdfImageType").val("Approved By");
+            $("#signModel").modal("show");
+        });
+
+        $(document).on("click", "#pCompletedBy", function () {
+            $("#hdfImageType").val("Completed By");
+            $("#signModel").modal("show");
+        });
+
+        $(document).ready(function () {
+            var approvedBy = document.querySelector('#approvedBy');
+            var padApproved = new SignaturePad(approvedBy);
+
+            $('#btnSign').click(function (e) {
+                debugger;
+                var imageType = $("#hdfImageType").val();
+                var approveByData = padApproved.toDataURL();
+                padApproved.off();
+
+
+                var valid = "Yes";
+                if (isCanvasBlank(approvedBy)) {
+                    $("#spAgreement").text("Please add signature for " + imageType + ".");
+                    valid = "No";
+                }
+                else {
+                    $("#spAgreement").text("");
+                }
+
+                if (valid == "No") {
+                    e.preventDefault();
+                }
+                else {
+                    $("#signModel").modal("hide");
+                    if (imageType == "Approved By") {
+                        $("#hdfApprovedBy").val(approveByData);
+                        $("#imgApprovedBy").attr("src", approveByData);
+                        $("#imgApprovedBy").removeClass("displayNone");
+                    }
+                    if (imageType == "Completed By") {
+                        $("#hdfFormCompletedBy").val(approveByData);
+                        $("#imgCompletedBy").attr("src", approveByData);
+                        $("#imgCompletedBy").removeClass("displayNone");
+                    }
+
+                    approvedBy = document.querySelector('#approvedBy');
+                    padApproved = new SignaturePad(approvedBy);
+                }
+            });
+            function isCanvasBlank(canvass) {
+                const context = canvass.getContext('2d');
+
+                const pixelBuffer = new Uint32Array(
+                    context.getImageData(0, 0, canvass.width, canvass.height).data.buffer
+                );
+
+                return !pixelBuffer.some(color => color !== 0);
+            }
+
+            $(document).on("click", "#btnClearSignature", function () {
+                var canvas = document.querySelector('#approvedBy');
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                padApproved = new SignaturePad(canvas);
+            });
+        });
+    </script>
+}
+
+

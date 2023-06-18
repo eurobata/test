@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "ShowProfile";
+}
+
+
+@*<div class="app-content my-3 my-md-5">
+    <div class="side-app">
+        <div class="page-header">
+            <h4 class="page-title">Show Profile</h4>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                <li class="breadcrumb-item"><a href="#">Show Profile</a></li>
+            </ol>
+        </div>
+
+
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">My Profile</h3>
+            </div>
+            <div class="card-bodyLO">
+                <form>
+                    <div class="row mb-2">
+                        @*<div class="col-auto">
+                            <img src="~/Uploads/@ViewBag.ProfilePicture" class="brround" height="100" width="100" />
+                        </div>*@
+                        <div class="col">
+                            <h3 class="mb-1">@ViewBag.FirstName</h3>
+                            <p class="mb-4">@ViewBag.Email</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">User Profile</h3>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="rowALL">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" value="@ViewBag.FirstName" disabled="disabled" />
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" value="@ViewBag.LastName" disabled="disabled" />
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>User Name</label>
+                                    <input type="text" class="form-control" value="@ViewBag.ProfileName" disabled="disabled" />
+
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" value="@ViewBag.Phone" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Office No</label>
+                                    <input type="text" class="form-control" value="@ViewBag.office" disabled="disabled" />
+
+                              
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+
+                                    <label>City</label>
+                                    <input type="text" class="form-control" value="@ViewBag.city" disabled="disabled" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Street Address Line 1</label>
+                                    <textarea class="form-control" disabled="disabled" rows="2" cols="20">@ViewBag.Address</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Street Address Line 2</label>
+                                    <textarea class="form-control" disabled="disabled" rows="2" cols="20">@ViewBag.add1</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Street Address Line 3</label>
+                                    <textarea class="form-control" disabled="disabled" rows="2" cols="20">@ViewBag.add2</textarea>
+                                </div>
+                            </div>
+
+                            @* <div class="col-md-12">
+            <div class="form-group">
+                <label>Select Profile Picture</label>
+                <input type="file" src="~/assets/images/media/media5.jpg" class="form-control" height="180" />
+            </div>
+        </div>*@
+
+
+
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

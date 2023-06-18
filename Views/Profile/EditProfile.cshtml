@@ -1,0 +1,526 @@
+﻿@model TemplateManagementSystem.DAL.SubscriptionModel
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+
+@*<div class="app-content my-3 my-md-5">
+        <div class="side-app">
+            <div class="page-header">
+                <h4 class="page-title">Edit Profile</h4>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Profile</a></li>
+                    <li class="breadcrumb-item"><a href="#">Edit Profile</a></li>
+                </ol>
+            </div>
+
+
+        </div>
+    </div>*@
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">My Profile</h3>
+            </div>
+            <div class="card-bodyLO">
+                <form>
+                    <div class="row mb-2">
+                        <div class="col-auto">
+                            <img src="@ViewBag.ProfilePicture" class="brround" height="100" width="100" />
+                        </div>
+                        <div class="col">
+                            <h3 class="mb-1">@ViewBag.FirstName</h3>
+                            <p class="mb-2">@ViewBag.Email</p>
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-5 mb-2">
+                            <select id="ddlMonth" class="form-control">
+                                <option value="January">January</option>
+                                <option value="February">February</option>
+                                <option value="March">March</option>
+                                <option value="April">April</option>
+                                <option value="May">May</option>
+                                <option value="June">June</option>
+                                <option value="July">July</option>
+                                <option value="August">August</option>
+                                <option value="September">September</option>
+                                <option value="October">October</option>
+                                <option value="November">November</option>
+                                <option value="December">December</option>
+                            </select>
+                        </div>
+                        <div class="col-5 mb-2">
+                            <select id="ddlYear" class="form-control">
+                                @for (int i = -5; i <= 5; i++)
+                                {
+                                    if (DateTime.Now.Year == (DateTime.Now.Year - i))
+                                    {
+                                        <option value="@(DateTime.Now.Year - i)" selected="selected">@(DateTime.Now.Year - i)</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@(DateTime.Now.Year - i)">@(DateTime.Now.Year - i)</option>
+                                    }
+                                }
+
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-primary" id="btnSearch">Search</button>
+                        </div>
+                    </div>
+                    <div class="row mb-2" style="margin-top:1rem !important;">
+                        <div class="col">
+                            <h5 class="font-weight-bold">Templates Created in (<span id="spMonth">@DateTime.Now.ToString("MMMM")</span>) : <span id="spTemplateCount">@ViewBag.TemplateCount</span></h5>
+                        </div>
+                    </div>
+                    @*<div class="row mb-2">
+                            <div class="col">
+                                <h3 class="mb-1">Templates Created</h3>
+                                <p class="mb-4">@ViewBag.TemplateCount</p>
+                            </div>
+                        </div>*@
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">User Profile</h3>
+            </div>
+            @{
+
+                string em = ViewBag.Email;
+            }
+            @using (Html.BeginForm("update", "Profile", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="card-body"  style="border-bottom: inset;">
+                    <form>
+                        <div class="rowALL">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" name="name" value="@ViewBag.FirstName" />
+
+
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" disabled value="@ViewBag.ProfileName" />
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="lastname" value="@ViewBag.LastName" />
+
+                                    <label>Phone Number</label>
+                                    <input type="text" class="form-control" name="phone" value="@ViewBag.Phone" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <label>Office No</label>
+                                    <input type="text" class="form-control" value="@ViewBag.office" name="officeno" />
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+
+                                    <label>City</label>
+                                    <input type="text" class="form-control" value="@ViewBag.city" name="city" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+
+                                    <label>Country</label>
+                                    <input type="text" class="form-control" value="@ViewBag.country" name="city" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+
+                                    <label>Postal Code</label>
+                                    <input type="text" class="form-control" value="@ViewBag.post" name="city" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address Line 1</label>
+                                    <textarea class="form-control" rows="5" name="address" cols="20">@ViewBag.Address</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address  Line 2</label>
+                                    <textarea class="form-control" rows="5" name="address2" cols="20">@ViewBag.add1</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Address  Line 3</label>
+                                    <textarea class="form-control" rows="5" name="address3" cols="20">@ViewBag.add2</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label>Select Logo Size</label>
+
+                                <select class="form-control" id="myshape">
+                                    <option value="">Chose Formate </option>
+                                    <option value="1">600 x 300 px</option>
+                                    <option value="2">300 x 300 px</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Image</label>
+                                    <input type="file" src="~/assets/images/media/media5.jpg" name="postedFile" onchange="getInfo(event)" class="form-control" height="180" id="gg" />
+                                    <p class="text-danger" id="err"></p>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
+                    </form>
+                </div>
+            }
+            @if (ViewBag.adminid != ViewBag.userid)
+            {
+                if (Model != null)
+                {
+                    if (string.IsNullOrEmpty(Model.AppUserId))
+                    {
+                        <div class="row text-center">
+                            <p>No Subscription</p>
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("cancelSubs", "Profile", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+
+                            @Html.HiddenFor(j => j.PlanId, new { @class = "form-control", @placeholder = "First Name" })
+
+
+        <div class="row container">
+            <div class="col-md-12 text-center">
+                <h3>Subscription Details</h3>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label> Plan</label>
+
+                    <input type="text" class="form-control" value="@Model.PlanName" readonly="readonly" />
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label> Start At</label>
+
+                    <input type="text" class="form-control" value="@Model.subcriptionStart" readonly="readonly" />
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label> Ends At</label>
+
+                    <input type="text" class="form-control" value="@Model.subcriptionEnd" readonly="readonly" />
+
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label> Status</label>
+
+                    <input type="text" class="form-control" value="@Model.status" readonly="readonly" />
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <br />
+                @if (Model.status == "Cancelled")
+                {
+                    <input type="submit" value="Cancel Subcription" class="btn btn-danger" disabled />
+
+                }
+                else
+                {
+                    <input type="submit" value="Cancel Subcription" class="btn btn-danger" />
+
+                }
+
+            </div>
+
+        </div>
+                        }
+                        using (Html.BeginForm("changePlan", "Profile", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+
+                            
+
+                            <div class="row container">
+                                <div class="col-md-12 text-center">
+                                    <h3>Subscription Upgrade</h3>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+
+                                        <div class="col-md-6">
+                                            <label class="form-label text-dark">Change Plan </label>
+                                            @Html.DropDownList("upgrade",
+                                                                                      new SelectList(ViewBag.plan, "Id", "Name"),
+                                                                                      "Please select", new { @class = "form-control",name="dg" })
+                                            
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                               
+                                
+
+                                <div class="col-md-6">
+
+                                    <br />
+                                    <input type="submit" value="Change Plan" class="btn btn-success" />
+
+
+                                </div>
+
+                            </div>
+                        }
+
+
+                    }
+
+
+                }
+
+                else
+                {
+                    <div class="container">
+
+                        <div class="alert alert-danger" role="alert">
+                            No Subscription
+                        </div>
+
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        const imageDimensions = file =>
+            new Promise((resolve, reject) => {
+                const img = new Image()
+
+                // the following handler will fire after a successful loading of the image
+                img.onload = () => {
+                    const { naturalWidth: width, naturalHeight: height } = img
+                    resolve({ width, height })
+                }
+
+                // and this handler will fire if there was an error with the image (like if it's not really an image or a corrupted one)
+                img.onerror = () => {
+                    reject('There was some problem with the image.')
+                }
+
+                img.src = URL.createObjectURL(file)
+            })
+        function isEmpty(val) {
+            return (val === undefined || val == null || val.length <= 0) ? true : false;
+        }
+        const getInfo = async ({ target: { files } }) => {
+
+            var sg = $("#myshape").val();
+            if (isEmpty(sg)) {
+                $("#gg").val("");
+                $("#err").text("Please Select the Profile Dimensions");
+
+            }
+            else {
+                const [file] = files
+
+                try {
+                    const dimensions = await imageDimensions(file)
+                    console.log(dimensions.height);
+                    if (dimensions.height === length && dimensions.width == width) {
+
+                        $("#err").text("");
+
+                    }
+                    else {
+                        $("#err").text("Your Uploaded Image is Invalid. Please Upload the Image with dimensions " + width + "x " + length + "");
+                        $("#gg").val("");
+
+                    }
+
+                    console.info(dimensions)
+
+                } catch (error) {
+                    console.error(error)
+                }
+            }
+
+        }
+        var month = '@DateTime.Now.ToString("MMMM")';
+        $(document).ready(function () {
+            $("#ddlMonth").val(month);
+        });
+        var width = 0;
+        var length = 0;
+
+
+        $("#myshape").change(function () {
+
+            if ($(this).val() === "1") {
+                width = 600;
+                length = 300;
+
+            }
+            else if ($(this).val() === "2") {
+                width = 300;
+                length = 300;
+
+            }
+
+
+        });
+
+        $(document).on("click", "#btnSearch", function () {
+            var month = $("#ddlMonth").val();
+            var year = $("#ddlYear").val();
+            $.ajax({
+                url: "/Profile/FetchTemplateCount",
+                type: "Get",
+                data: { month: month, year: year },
+                success: function (result) {
+                    $("#spMonth").text(month);
+                    $("#spTemplateCount").text(result);
+                }
+            });
+        });
+    </script>
+}
+
+
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<link href="~/assets/css/jquery.minipreview.css" rel="stylesheet" />
+<style>
+    .HeartAnimation {
+        padding-top: 2em;
+        background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/66955/web_heart_animation.png');
+        background-repeat: no-repeat;
+        background-size: 2900%;
+        background-position: left;
+        height: 50px;
+        width: 100px;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+
+    .animate {
+        animation: heart-burst .8s steps(28) forwards;
+    }
+
+    @@keyframes heart-burst {
+        0% {
+            background-position: left
+        }
+
+        100% {
+            background-position: right
+        }
+    }
+
+
+    a {
+        color: black;
+    }
+
+    .break {
+        text-align: center;
+    }
+</style>
+
+@*<div class="col-lg-3 col-md-3">
+        <div class="item-all-card bg-purple text-center">
+            <a href="#"></a>
+            <div class="iteam-all-icon">
+                <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+            </div>
+            <div class="item-all-text mt-3">
+                <p>Total Emails</p>
+
+            </div>
+        </div>
+    </div>*@
+@*<div class="col-lg-3 col-md-3">
+        <div class="item-all-card bg-purple text-center">
+            <a href="#"></a>
+            <div class="iteam-all-icon">
+                <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+            </div>
+            <div class="item-all-text mt-3">
+                <p>Total Emails</p>
+
+            </div>
+        </div>
+    </div>*@
+@*<div class="col-lg-3 col-md-3">
+        <div class="item-all-card bg-purple text-center">
+            <a href="#"></a>
+            <div class="iteam-all-icon">
+                <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+            </div>
+            <div class="item-all-text mt-3">
+                <p>Total Emails</p>
+
+            </div>
+        </div>
+    </div>*@
+
+<!--</div>-->
+@*</div>
+    </div>*@

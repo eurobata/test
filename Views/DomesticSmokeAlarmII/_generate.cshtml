@@ -1,0 +1,623 @@
+﻿@{
+    ViewBag.Title = "Domestic Smoke Alarm Compliance Cert";
+}
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@model TemplateManagementSystem.Models.DomesticSmokeAlarmII
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-8 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-2 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-10 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .cols-md-8 {
+            flex: 0 0 66%;
+            max-width: 66%;
+        }
+
+        .cols-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .cols-md-2 {
+            flex: 0 0 10%;
+            max-width: 10%;
+        }
+
+        .cols-md-10 {
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+    }
+    input{
+        border:none;
+    }
+    .form-control{
+        border:none;
+    }
+</style>
+
+@Html.Partial("_css")
+
+<div >
+    @using (Html.BeginForm("Index", "DailyTimeSheet", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+
+
+        <div class="row" style="background-color:dodgerblue">
+            <div class="col-xs-4">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="200" height="110" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="200" height="110" />
+
+                }
+
+
+            </div>
+            <div class="col-xs-8">
+                <br />
+                <br />
+
+
+                <h3 style="color:white;font-weight:bolder">Domestic Smoke Alarm/ RCD Compliance</h3>
+
+            </div>
+
+        </div>
+        <br />
+
+        <div class="row" style="margin:0px">
+            <div class="col-xs-4">
+                <label>Name &Aacute; Address</label>
+                <br />
+                @Html.TextAreaFor(s => s.Nameaddress, new { @class = "form-control sm", @type = "text", @rows = "5" })
+
+            </div>
+
+            <div class="col-xs-8">
+                <div class="rows">
+                    <div class="col-xs-6">
+                        <label>Unique Id</label>
+                        @Html.TextBoxFor(s => s.uniqueid, new { @class = "form-control sm", @type = "text" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Licence Number</label>
+                        @Html.TextBoxFor(s => s.LisenceNo, new { @class = "form-control sm", @type = "text" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Inspection Address</label>
+                        @Html.TextBoxFor(s => s.InspectionAddress, new { @class = "form-control sm", @type = "text" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Building Class</label>
+                        @Html.TextBoxFor(s => s.buildingClass, new { @class = "form-control sm", @type = "text" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Inspection Date</label>
+                        @Html.TextBoxFor(s => s.InspectionDateStr, new { @class = "form-control sm", @type = "date" })
+                    </div>
+                    <div class="col-xs-6">
+                        <label>Inspected By</label>
+                        @Html.TextBoxFor(s => s.InspectedBy, new { @class = "form-control sm", @type = "text" })
+
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div>
+      <br />
+        <div class="row" style="margin:0px">
+            <div class="col-xs-2" style="background-color:dodgerblue;padding:1rem">
+
+                <span>  @Html.CheckBoxFor(s => s.check1, new { @class = "form-control sm" }) </span>
+
+
+            </div>
+            <div class="col-xs-10" style="background-color:dodgerblue;padding:1.5rem;color:white">
+
+                <span>    on the Inpection Date at the inspection Address the smoke alarms. <span style="color:red">Met the Current Requirements</span> </span>
+
+
+            </div>
+
+        </div>
+        <br />
+        <div class="row" style="margin:0px" >
+            <div class="col-xs-2" style="background-color:dodgerblue;padding:1rem">
+
+                <span>  @Html.CheckBoxFor(s => s.check2, new { @class = "form-control sm" }) </span>
+
+
+            </div>
+            <div class="col-xs-10" style="background-color:dodgerblue;padding:1.5rem;color:white">
+
+                <span>    on the Inpection Date at the inspection Address the smoke alarms. <span style="color:red">Met the New Requirements</span>  </span>
+
+
+            </div>
+
+        </div>
+        <br />
+        <h2 style="color:forestgreen">Smoke Alarms</h2>
+        <p>At this Inspection the following alarm were present or installed</p>
+        <table style="width:100% !important;">
+            <tr style="text-align: center; background-color: dodgerblue;color:white">
+                <td>
+                    Smoke
+                </td>
+
+                <td>
+                    Smoke 1
+                </td>
+                <td>
+                    Smoke 2
+                </td>
+                <td>
+                    Smoke 3
+                </td>
+                <td>
+                    Smoke 4
+                </td>
+                <td>
+                    Smoke 5
+                </td>
+
+
+
+            </tr>
+            <tr>
+                <td style="padding:1rem">
+                    Voltage/Type
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.VoltageSmoke1, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.VoltageSmoke2, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.VoltageSmoke3, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.VoltageSmoke4, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.VoltageSmoke5, new { @class = "form-control sm", @type = "text" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding:1rem">
+                    Location
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.LocationSmoke1, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.LocationSmoke2, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.LocationSmoke3, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.LocationSmoke4, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.LocationSmoke5, new { @class = "form-control sm", @type = "text" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding:1rem">
+                    Room /Level
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.RoomSmoke1, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.RoomSmoke2, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.RoomSmoke3, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.RoomSmoke4, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.RoomSmoke5, new { @class = "form-control sm", @type = "text" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding:1rem">
+                    Expires
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.ExpireSmoke1, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExpireSmoke2, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExpireSmoke3, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExpireSmoke4, new { @class = "form-control sm", @type = "text" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ExpireSmoke5, new { @class = "form-control sm", @type = "text" })
+                </td>
+
+            </tr>
+
+        </table>
+
+        <div class="rows">
+            <div class="cols-md-4">
+
+            </div>
+            <div class="cols-md-8">
+
+
+            </div>
+
+        </div>
+        @*<table style="width:100% !important;">
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; font-weight: bold">
+                        Unique Id
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.uniqueid, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; background-color: dodgerblue; font-weight: bold">
+                        Date
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.datestr, new { @class = "form-control sm", @type = "date" })
+
+
+                    </td>
+
+                </tr>
+
+
+            </table>
+            <br />
+
+            <table style="width:100% !important;">
+                <tr>
+                    <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+
+                        Location of Installation
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Address
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.address, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                        Customer Information
+                    </td>
+                </tr>
+                <tr>
+
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Name
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.name, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+
+
+            </table>
+            <table style="width:100% !important;">
+                <tr>
+                    <td colspan="4" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                        Questions
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Location of A/C
+                    </td>
+                    <td colspan="3">
+                        @Html.TextBoxFor(s => s.locationAc, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        New install or Replacement
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.replacement, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Extra Pipe Work Needed
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.ExtraPipe, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Size of A/C
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.sizeOfAc, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Mounting Needed
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.ExtraPipe, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Is A/C OR B2B Install
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.b2b, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Internal Capping Required
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.capping, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Wall Structure Material
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.wsm, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        New  Electrical Feed Req
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.nefr, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Existing Piping/Drain be Used
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.drain, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        RCD/RCBO Needed
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.rcdRcbo, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td width="20%" style="padding-left: 1rem; color: dodgerblue">
+                        Additional Info Needed For Installation
+                    </td>
+                    <td colspan="3">
+                        @Html.TextBoxFor(s => s.addtionalinfo, new { @class = "form-control sm", @type = "text" })
+
+                    </td>
+
+
+                </tr>
+            </table>
+            <table style="width:100% !important;">
+                <tr>
+                    <td colspan="2" style=" background-color: dodgerblue;padding:0.5rem;font-weight:bold">
+                        Photos
+                    </td>
+                </tr>
+                <tr>
+
+                    <td>
+                        <input type="file" name="image1" class="form-control sm" />
+
+                    </td>
+
+                    <td>
+                        <input type="file" name="image2" class="form-control sm" />
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image1Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 1 Description" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image2Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 1 Description" })
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input type="file" name="image3" class="form-control sm" />
+
+                    </td>
+
+                    <td>
+                        <input type="file" name="image4" class="form-control sm" />
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image3Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 3 Description" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image4Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 4 Description" })
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        <input type="file" name="image5" class="form-control sm" />
+
+                    </td>
+
+                    <td>
+                        <input type="file" name="image6" class="form-control sm" />
+
+                    </td>
+
+                </tr>
+                <tr>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image5Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 5 Description" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextAreaFor(s => s.image6Des, new { @class = "form-control sm", @type = "text", @placeholder = "Image 6 Description" })
+
+                    </td>
+
+                </tr>
+
+            </table>*@
+
+        <br />
+
+
+    }
+
+</div>
+
+

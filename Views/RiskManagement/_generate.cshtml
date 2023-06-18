@@ -1,0 +1,410 @@
+﻿@{
+    ViewBag.Title = "Daily Time Sheet";
+}
+@model TemplateManagementSystem.Models.RiskManagement
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@Html.Partial("_css")
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid black;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+</style>
+
+
+
+<div class="card" style="padding-left:2rem;padding-right:2rem">
+    @using (Html.BeginForm("Index", "DailyTimeSheet", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+
+
+        <div class="row" style="margin-top:0px">
+            <div class="col-xs-6">
+                <br />
+                <br />
+                <br />
+
+
+                <h3>SWMS Checklist-Appendix 1</h3>
+            </div>
+            <div class="col-xs-6" style="text-align:right">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="200" height="100" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="200" height="100" />
+
+                }
+
+            </div>
+
+        </div>
+        <div style="padding-left:1rem">
+            @Model.addressStr
+            <br />
+            <br />
+
+
+        </div>
+        <table style="width:100% !important;">
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: lightgrey">
+                    Site Location
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.siteLocation, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: lightgrey">
+                    Date
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.datestr, new { @class = "form-control sm", @type = "date" })
+
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: lightgrey">
+                    Supervisor / Leading Hand
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.supervisorLeading, new { @class = "form-control sm", @type = "text" })
+
+
+                </td>
+
+            </tr>
+            <tr>
+                <td width="20%" style="padding-left: 1rem; background-color: lightgrey">
+                    Work Activity Details
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.workActivityDetail, new { @rows = 1, @class = "form-control sm", @type = "text" })
+
+
+                </td>
+
+            </tr>
+
+        </table>
+        <br />
+
+        <table style="width:100% !important;">
+
+            <caption style="text-align:center; background-color: lightgrey" width="100%"> <b>PERMIT/S REQUIRED</b>  </caption>
+
+
+        </table>
+
+
+        <table style="width:100% !important;">
+
+
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Excavation
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Excavation, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td style="padding-left: 1rem;">
+                    Hot Work
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.hotWork, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Work at Height
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.workatHeight, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+                <td style="padding-left: 1rem;">
+                    Work Near Overhead Power
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.wOverHead, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Confined Space Entry
+                </td>
+                <td colspan="3">
+                    @Html.TextBoxFor(s => s.spaceEntry, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Other Specify
+                </td>
+                <td colspan="3">
+                    @Html.TextAreaFor(s => s.other, new { @class = "form-control sm", @rows = 6 })
+
+                </td>
+
+
+            </tr>
+        </table>
+
+        <table style="width:100% !important;">
+            <tr>
+                <td colspan="3" style="text-align:center; background-color: lightgrey" width="100%"> <b>TOOLS AND EQUIPMENT FOR JOB</b>  </td>
+
+            </tr>
+
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Electric tools and equipment tested with a current tag attached
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool1, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <td style="padding-left: 1rem;">
+                    Electric tools and equipment free from damage
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool2, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Portable electrical equipment is protected by safety switches/RCD
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool3, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Hands Tools free from damage
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool4, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Ladders in Good Condition
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool5, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Scaffolds inspected and safe for use
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool6, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Fire Extingusiher available and charged
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool7, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    First aid Kit available and stocked
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool8, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Tools and equipment inspections daily inspection complete
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.tool9, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center; background-color: lightgrey" width="100%"> <b>CHEMICALS AND HAZARDOUS SUBSTANCES USED ONSITE</b>  </td>
+
+            </tr>
+            <tr>
+
+                <td colspan="3">
+                    @Html.TextAreaFor(s => s.AdditionComment, new { @class = "form-control sm", @type = "text", @placeholder = "Comments" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Has the SDS been read and understood for the chemicals
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.sds, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td colspan="3" style="text-align:center; background-color: lightgrey" width="100%"> <b>SITE ASSESSMENT</b>  </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Site is clear of slip and trip hazards and clear of obstruction
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.slipTrip, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Site access is declineated from plan or traffic movements
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.plantrafic, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left: 1rem;" width="50%">
+                    Inspect and list any possible hazards or obstructions
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.hazardOsb, new { @class = "form-control sm", @type = "text" })
+
+                </td>
+
+
+            </tr>
+        </table>
+
+
+        <br />
+    
+    }
+
+</div>
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+    </script>
+}
+
+

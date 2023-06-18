@@ -1,0 +1,439 @@
+﻿
+@model TemplateManagementSystem.Models.ServiceBoiler
+<div class="card" style="padding-left:2rem;padding-right:2rem">
+    @using (Html.BeginForm("myGenerateb", "boilerService", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @Html.HiddenFor(s => s.Id)
+
+        <br />
+        <br />
+
+        <div class="rows">
+            <div class="cols-md-6">
+                <img src="~/pics/@Model.logo" width="250" height="100" />
+            </div>
+            <div class="cols-md-6" style="text-align:right;">
+                <br />
+                <br />
+
+                <h2 style="font-weight:bolder">Boiler Servic /Condition Report</h2>
+            </div>
+
+        </div>
+        <br />
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td>
+                    Bussiness Details
+                </td>
+                <td>
+                    Site Address
+                </td>
+                <td>
+                    Customer Details
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(s => s.BussinessDetail, new { @class = "form-control", @rows = "5" })
+
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.Siteaddress, new { @class = "form-control", @rows = "5" })
+
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.CustomerDetails, new { @class = "form-control", @rows = "5" })
+
+                </td>
+            </tr>
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="3">
+                    Appliance Details
+                </td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <table style="width:100% !important;">
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Type
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.orType, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Approximate Age
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.aproxAge, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Make
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.make, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Appliance Location
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.apploc, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Model
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.model, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Is Property Rented
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.PropertyRented, new { @class = "form-control" })
+                </td>
+            </tr>
+
+
+        </table>
+      
+        @*
+
+            <table style="width:100% !important;">
+                <tr style="background-color:dodgerblue;text-align:center;color:white">
+                    <td colspan="5">
+                        Gas Testing Results
+                    </td>
+                </tr>
+                <tr style="text-align:center">
+                    <td>
+                        Test Completed
+                    </td>
+                    <td>
+                        Carbon Monoxide Parts per million
+                    </td>
+                    <td>
+                        Oxygen Level %
+                    </td>
+                    <td>
+
+                        Carbon Dioxide Level %
+                    </td>
+                    <td>
+
+                        Ratio of CO and Co2
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding-left:0.4rem">
+                        Minimum Rate
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.MincarbonMonoOxide, new { @class = "form-control" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.Minoxygenlevel, new { @class = "form-control" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(s => s.MincarbDioxide, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.MinRatioCoCo2, new { @class = "form-control" })
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td style="padding-left:0.4rem">
+                        Maximum Rate
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.MaxcarbonMonoOxide, new { @class = "form-control" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.Maxoxygenlevel, new { @class = "form-control" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(s => s.MaxcarbDioxide, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.MaxRatioCoCo2, new { @class = "form-control" })
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td style="padding-left:0.4rem">
+                        Flue Integrity Test
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.IntcarbonMonoOxide, new { @class = "form-control" })
+
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.Minoxygenlevel, new { @class = "form-control" })
+
+                    </td>
+
+                    <td>
+                        @Html.TextBoxFor(s => s.IntcarbDioxide, new { @class = "form-control" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.IntRatioCoCo2, new { @class = "form-control" })
+                    </td>
+
+
+                </tr>
+                <tr>
+                    <td style="padding-left:0.4rem">
+                        Gas Pressure Tests
+                    </td>
+                    <td>
+                        <table style="width:100% !important;">
+                            <tr>
+                                <td>
+                                    Gas Rate (KW)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(s => s.gasrate, new { @class = "form-control" })
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                    <td>
+
+                        <table style="width:100% !important;">
+                            <tr>
+                                <td>
+                                    Working Pressure at the meter(mbar)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(s => s.workingPressure, new { @class = "form-control" })
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+
+                    <td>
+                        <table style="width:100% !important;">
+                            <tr>
+                                <td>
+                                    Working Pressure at the Boiler(mbar)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(s => s.boilerPressuer, new { @class = "form-control" })
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table style="width:100% !important;">
+                            <tr>
+                                <td>
+                                    Burner Pressure (mbar)
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(s => s.burner, new { @class = "form-control" })
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+
+                </tr>
+
+            </table>
+            <table style="width:100% !important;">
+                <tr style="background-color:dodgerblue;text-align:center;color:white">
+                    <td colspan="2">
+                        Findings
+                    </td>
+                </tr>
+                <tr>
+                    <td width="25%">
+                        Is appliance safe to Use?
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.finding1, new { @class = "form-control" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        General Condition of Appliance
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.finding2, new { @class = "form-control" })
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Remedial Work Required
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(s => s.finding3, new { @class = "form-control" })
+
+                    </td>
+                </tr>
+            </table>
+            <table style="width:100% !important;">
+                <tr style="background-color:dodgerblue;text-align:center;color:white">
+                    <td>
+                        Comments
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.TextAreaFor(s => s.comment, new { @class = "form-control", @rows = "4" })
+
+                    </td>
+                </tr>
+            </table>
+
+
+            <table style="width:100% !important;">
+                <tr style="background-color:dodgerblue;text-align:center;color:white">
+                    <td>
+                        Engineer Information
+                    </td>
+                    <td>
+                        Received By Information
+                    </td>
+                    <td>
+                        Certificate Information
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <div class="row" style="margin-top:0px">
+
+                            <div class="col-md-4" style="padding:0.3rem">Engineer Name:</div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.engName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="padding:0.3rem">Gas Safe Licence Number:</div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.LicsenceNo, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row col-md-12">
+                            @Html.HiddenFor(s => s.sign, new { @id = "hdfApprovedBy" })
+
+
+                            <img src="@Model.sign" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.sign) ? "displayNone" :"")" />
+                            <br />
+
+
+                        </div>
+                        <div class="row col-md-12">
+
+                            <p id="pSignature" style="margin-bottom: 10px; line-height: 0.5; font-size: 18px; color: red;" data-toggle="modal" data-target="#signModel">[...................................................]</p>
+
+                        </div>
+
+                    </td>
+                    <td>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="padding:0.3rem">Received By: </div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.recievedBy, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="padding:0.3rem">Position:</div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.position, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </td>
+                    <td>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="padding:0.3rem">Date:</div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.datestr, new { @class = "form-control", @type = "date" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="padding:0.3rem"> Certificate Number:</div>
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(s => s.certificateNo, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:0px">
+                            <div class="col-md-4" style="color: red; padding: 0.3rem">Next Service Due Date:</div>
+                            <div class="col-md-8" style="color:red">
+                                @Html.TextBoxFor(s => s.duDatestr, new { @class = "form-control", @type = "date" })
+                            </div>
+
+                        </div>
+                        <br />
+                        <br />
+
+                    </td>
+                </tr>
+            </table>*@
+
+
+
+        <div class="row" style="margin:1rem">
+            <div class="col-md-12">
+                @if (string.IsNullOrEmpty(ViewBag.pre))
+                {
+                    @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                    <button type="submit" class="btn btn-success">Generate</button>
+
+                    if (Model.Id > 0)
+                    {
+                        @Html.HiddenFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+                        <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                    }
+
+                }
+
+                <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+

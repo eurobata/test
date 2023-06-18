@@ -1,0 +1,846 @@
+﻿
+@{
+    ViewBag.Title = "Boiler Service Condition Report";
+}
+@model TemplateManagementSystem.Models.ServiceBoiler
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+@Html.Partial("_css")
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-8 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-2 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-10 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .cols-md-8 {
+            flex: 0 0 66%;
+            max-width: 66%;
+        }
+
+        .cols-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .cols-md-2 {
+            flex: 0 0 13%;
+            max-width: 13%;
+        }
+
+        .cols-md-10 {
+            flex: 0 0 85%;
+            max-width: 85%;
+        }
+    }
+
+    .displayNone {
+        display: none !important;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+
+<div >
+    @using (Html.BeginForm("Index", "boilerService", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+        @Html.HiddenFor(s => s.logo)
+
+        <br />
+        <br />
+
+        <div class="row" style="margin-top:0px">
+            <div class="col-xs-6">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="250" height="100" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="250" height="100" />
+
+                }
+
+            </div>
+            <div class="col-xs-6" style="text-align:right;">
+                <br />
+                <br />
+
+                <h3 style="font-weight:bolder">Boiler Service /Condition Report</h3>
+            </div>
+
+        </div>
+        <br />
+
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td>
+                    Bussiness Details
+                </td>
+                <td>
+                    Site Address
+                </td>
+                <td>
+                    Customer Details
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(s => s.BussinessDetail, new { @class = "form-control", @rows = "5" })
+
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.Siteaddress, new { @class = "form-control", @rows = "5" })
+
+                </td>
+                <td>
+                    @Html.TextAreaFor(s => s.CustomerDetails, new { @class = "form-control", @rows = "5" })
+
+                </td>
+            </tr>
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="3">
+                    Appliance Details
+                </td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+        <table style="width:100% !important;">
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Type
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.orType, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Approximate Age
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.aproxAge, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Make
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.make, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Appliance Location
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.apploc, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Model
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.model, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Is Property Rented
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.PropertyRented, new { @class = "form-control" })
+                </td>
+            </tr>
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="4">
+                    Servicing Maintainance Tasks/Checks
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Magnetic Filter
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.MagneticFiler, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Condition  of the electrics
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.conditionOfElectric, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Expansion Vessel
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.expensionVessel, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Control System
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.controlsystem, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Condensate Trap
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.condensateTrap, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Ignition Process
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ignitionProcess, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Burners/Injectors
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.burner, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Flame Picture
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.flampicture, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Spark Electrodes
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.sparkElectrodes, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Are there any Gas/Water Leaks
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.GassWaterLeak, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Flame Rectification Probe
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.rectification, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Fan Condition
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.fanCondition, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Heat Exchanger
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.exchanger, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Pump Condition
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.pumpCondition, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Water Quality
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.waterQuality, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Automatic air vent
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.automaticAirVent, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Location
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.location, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Gas Pipework and connections
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.pipConnection, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Appliance Stability
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ApStability, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Case Seal Condition
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.sealCondition, new { @class = "form-control" })
+                </td>
+
+            </tr>
+
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="4">
+                    Gas Safety Checks
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Whole house gas tightness test carried out
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.tightNess, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Ventilation Requirements
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.ventilationRequiremnts, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Appliance gas tightness test
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.gasTightness, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Flue flow test
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.flueflow, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Clearences
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.clearences, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Combustion Analyser Reading
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.combustion, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Operating Pressure(mbar) or heat input (KW)
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.operatingPressuer, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Return air/flue air intake
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.intake, new { @class = "form-control" })
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Safety Device
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.safetyDevice, new { @class = "form-control" })
+
+                </td>
+                <td style="padding-left:0.4rem">
+                    Flue Termination
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.fluetermination, new { @class = "form-control" })
+                </td>
+
+
+            </tr>
+
+        </table>
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="5">
+                    Gas Testing Results
+                </td>
+            </tr>
+            <tr style="text-align:center">
+                <td>
+                    Test Completed
+                </td>
+                <td>
+                    Carbon Monoxide Parts per million
+                </td>
+                <td>
+                    Oxygen Level %
+                </td>
+                <td>
+
+                    Carbon Dioxide Level %
+                </td>
+                <td>
+
+                    Ratio of CO and Co2
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Minimum Rate
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.MincarbonMonoOxide, new { @class = "form-control" })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Minoxygenlevel, new { @class = "form-control" })
+
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.MincarbDioxide, new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.MinRatioCoCo2, new { @class = "form-control" })
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Maximum Rate
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.MaxcarbonMonoOxide, new { @class = "form-control" })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Maxoxygenlevel, new { @class = "form-control" })
+
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.MaxcarbDioxide, new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.MaxRatioCoCo2, new { @class = "form-control" })
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Flue Integrity Test
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.IntcarbonMonoOxide, new { @class = "form-control" })
+
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.Intoxygenlevel, new { @class = "form-control" })
+
+                </td>
+
+                <td>
+                    @Html.TextBoxFor(s => s.IntcarbDioxide, new { @class = "form-control" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.IntRatioCoCo2, new { @class = "form-control" })
+                </td>
+
+
+            </tr>
+            <tr>
+                <td style="padding-left:0.4rem">
+                    Gas Pressure Tests
+                </td>
+                <td>
+                    <table style="width:100% !important;">
+                        <tr>
+                            <td>
+                                Gas Rate (KW)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(s => s.gasrate, new { @class = "form-control" })
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td>
+
+                    <table style="width:100% !important;">
+                        <tr>
+                            <td>
+                                Working Pressure at the meter(mbar)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(s => s.workingPressure, new { @class = "form-control" })
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+
+                <td>
+                    <table style="width:100% !important;">
+                        <tr>
+                            <td>
+                                Working Pressure at the Boiler(mbar)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(s => s.boilerPressuer, new { @class = "form-control" })
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <table style="width:100% !important;">
+                        <tr>
+                            <td>
+                                Burner Pressure (mbar)
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(s => s.burner, new { @class = "form-control" })
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+
+            </tr>
+
+        </table>
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td colspan="2">
+                    Findings
+                </td>
+            </tr>
+            <tr>
+                <td width="25%">
+                    Is appliance safe to Use?
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.finding1, new { @class = "form-control" })
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    General Condition of Appliance
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.finding2, new { @class = "form-control" })
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Remedial Work Required
+                </td>
+                <td>
+                    @Html.TextBoxFor(s => s.finding3, new { @class = "form-control" })
+
+                </td>
+            </tr>
+        </table>
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td>
+                    Comments
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.TextAreaFor(s => s.comment, new { @class = "form-control", @rows = "4" })
+
+                </td>
+            </tr>
+        </table>
+
+
+        <table style="width:100% !important;">
+            <tr style="background-color:dodgerblue;text-align:center;color:white">
+                <td>
+                    Engineer Information
+                </td>
+                <td>
+                    Received By Information
+                </td>
+                <td>
+                    Certificate Information
+                </td>
+
+            </tr>
+            <tr>
+                <td style="padding:0.5rem">
+                    <br />
+                    <p>Engineer Name: @Model.engName</p>
+                    <p>Gas Safe Licence Number: @Model.LicsenceNo</p>
+                    <img src="@Model.sign" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.sign) ? "displayNone" :"")" />
+
+                   
+                </td>
+                <td style="padding:0.5rem">
+                    <p>Received By: @Model.recievedBy</p>
+                    <p>Position: @Model.position</p>
+                    <br />
+
+
+                </td>
+                <td style="padding:0.5rem">
+                    
+                    <p>Date: @Model.datestr</p>
+                    <p> Certificate Number: @Model.certificateNo</p>
+                    <p style="color:red"> Next Service Due Date: @Model.duDatestr</p>
+
+
+
+                  
+                </td>
+            </tr>
+        </table>
+
+
+
+
+    }
+
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+    </script>
+
+    <script src="~/Scripts/signature_pad.min.js"></script>
+    <script type="text/javascript">
+        $(document).on("click", "#pSignature", function () {
+
+
+            $("#hdfImageType").val("Approved By");
+
+
+            $("#signModel").modal("show");
+        });
+
+        $(document).on("click", "#pCompletedBy", function () {
+            $("#hdfImageType").val("Completed By");
+            $("#signModel").modal("show");
+        });
+
+        $(document).ready(function () {
+            var approvedBy = document.querySelector('#approvedBy');
+            var padApproved = new SignaturePad(approvedBy);
+
+            $('#btnSign').click(function (e) {
+                debugger;
+                var imageType = $("#hdfImageType").val();
+                var approveByData = padApproved.toDataURL();
+                padApproved.off();
+
+
+                var valid = "Yes";
+                if (isCanvasBlank(approvedBy)) {
+                    $("#spAgreement").text("Please add signature for " + imageType + ".");
+                    valid = "No";
+                }
+                else {
+                    $("#spAgreement").text("");
+                }
+
+                if (valid == "No") {
+                    e.preventDefault();
+                }
+                else {
+                    $("#signModel").modal("hide");
+                    if (imageType == "Approved By") {
+                        $("#hdfApprovedBy").val(approveByData);
+                        $("#imgApprovedBy").attr("src", approveByData);
+                        $("#imgApprovedBy").removeClass("displayNone");
+                    }
+                    if (imageType == "Completed By") {
+                        $("#hdfFormCompletedBy").val(approveByData);
+                        $("#imgCompletedBy").attr("src", approveByData);
+                        $("#imgCompletedBy").removeClass("displayNone");
+                    }
+
+                    approvedBy = document.querySelector('#approvedBy');
+                    padApproved = new SignaturePad(approvedBy);
+                }
+            });
+            function isCanvasBlank(canvass) {
+                const context = canvass.getContext('2d');
+
+                const pixelBuffer = new Uint32Array(
+                    context.getImageData(0, 0, canvass.width, canvass.height).data.buffer
+                );
+
+                return !pixelBuffer.some(color => color !== 0);
+            }
+
+            $(document).on("click", "#btnClearSignature", function () {
+                var canvas = document.querySelector('#approvedBy');
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                padApproved = new SignaturePad(canvas);
+            });
+        });
+        const textBoxes = document.querySelectorAll(".text-box");
+        textBoxes.forEach(function (textBox) {
+            textBox.addEventListener("input", function () {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+
+    </script>
+}

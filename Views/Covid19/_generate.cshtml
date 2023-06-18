@@ -1,0 +1,308 @@
+﻿@{
+    ViewBag.Title = "Covid-19 Pre check";
+}
+@model TemplateManagementSystem.Models.covid19
+@Html.Partial("_css")
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-8 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-2 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .form-control {
+        border: none;
+    }
+
+    .cols-md-10 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .cols-md-8 {
+            flex: 0 0 66%;
+            max-width: 66%;
+        }
+
+        .cols-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .cols-md-2 {
+            flex: 0 0 13%;
+            max-width: 13%;
+        }
+
+        .cols-md-10 {
+            flex: 0 0 85%;
+            max-width: 85%;
+        }
+    }
+
+    .displayNone {
+        display: none !important;
+    }
+
+    input {
+        border: none
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+
+    .printDetails > div {
+        display: inline-block;
+    }
+</style>
+
+<div class="" style="padding-left:2rem;padding-right:2rem;bottom:0px">
+    @using (Html.BeginForm("Index", "DailyTimeSheet", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+        <br />
+        <br />
+
+
+        <div class="row">
+            <div class="col-xs-6">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="@Server.MapPath("~/assets/images/defaultimage.png")" width="200" height="100" />
+
+                }
+                else
+                {
+                    <img src="@Server.MapPath("~/pics/"+Model.logo+"")" width="200" height="100" />
+
+                }
+
+
+            </div>
+            <div class="col-xs-6" style="text-align:right"> 
+                <p>@Model.locationLin1 ,@Model.city, @Model.state</p>
+                <p>@Model.postcode</p>
+                <p><span style="font-weight:bolder">PH</span>: @Model.phone</p>
+                <p><span style="font-weight:bolder">Email</span>: @Model.email</p>
+
+            </div>
+        </div>
+      
+
+
+        <div style="text-align:center">
+            <br />
+
+            <h2 style="font-weight:bolder">Covid-19 Pre-Check</h2>
+
+        </div>
+        <div class="rows">
+            <div class="cols-md-12" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Job Address: @Model.jobAddress</span>
+            </div>
+
+
+        </div>
+
+        <div class="rows">
+            <div class="cols-md-12" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Date: @Model.Date</span>
+            </div>
+
+
+        </div>
+
+        <div class="rows">
+            <div class="cols-md-12" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Job Number: @Model.jobnumber</span>
+            </div>
+
+
+        </div>
+        <br />
+        <div class="rows cols-md-12">
+            <h4 style="font-weight:bolder">Covid-19 Pre-Check</h4>
+
+
+        </div>
+        <br />
+        <div class="rows cols-md-12">
+
+            <p>I  @Model.firstName  @Model.lastname confirms that no person on the premises  </p>
+
+        </div>
+        <style>
+            ol.a {
+                list-style-type: square;
+            }
+        </style>
+        <div class="rows cols-md-12">
+
+            <div style="padding:1rem">
+                <ol class="a">
+                    <li>Has COVID-19 Currently.</li>
+                    <li>Has tested positive for covid-19 in the past and have not been medicaly cleared as no longer carying the virus.</li>
+                    <li>Has Travelled internationally within last 14 days.</li>
+                    <li>Has visited a declared covid-19 hot spot within the last 14 days.</li>
+                    <li>Has been in close contact with a person who has tested positive for covid-19 in the past 14 days.</li>
+                    <li>Is currently unwell or has experienced covid-19 symptoms including fever,cough,sore throat,congestion,shortness of breath, and/or loss of smell/taste in thr last 14 days, and</li>
+                    <li>Is currently awarding the result of a covid-19 test</li>
+
+                </ol>
+            </div>
+        </div>
+        <div class="rows cols-md-12">
+            <p>
+                <b>Signed</b>
+            </p>
+
+        </div>
+        <div class="rows cols-md-12">
+
+
+            <img src="@Model.sign" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.sign) ? "displayNone" :"")" />
+            <br />
+
+
+        </div>
+
+        <div class="rows cols-md-12">
+
+            <p>For and on Behalf of </p>
+        </div>
+
+        <div class="rows cols-md-12">
+
+            <p>@Model.firstName @Model.lastname</p>
+
+        </div>
+        <div class="rows">
+            <div class="cols-md-12" style="padding-top:0.4rem">
+                Date: @Model.Date2
+            </div>
+
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+      
+        <style>
+            .footers {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+               
+                padding: 10px;
+            }
+        </style>
+        <div class="footers" >
+            <div class="row">
+                <div class="col-xs-4">
+                    Ph: @Model.phone
+                   
+                </div>
+                <div class="col-xs-4">
+                    Fax: @Model.locationLin1
+                </div>
+                <div class="col-xs-4">
+                    Email: @Model.email
+                </div>
+            </div>
+        </div>
+
+
+    }
+
+</div>
+
+
+
+

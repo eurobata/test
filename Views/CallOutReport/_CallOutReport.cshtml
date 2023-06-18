@@ -1,0 +1,81 @@
+﻿@model TemplateManagementSystem.Models.CallOutReportViewModel
+<style>
+    thead {
+        display: table-header-group;
+    }
+
+    tfoot {
+        display: table-row-group;
+    }
+
+    tr {
+        page-break-inside: avoid;
+    }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table td, table th {
+            border: 1px solid black;
+        }
+</style>
+<div style="padding:15px;">
+    <span style="float:right !important;font-size:20px;font-weight:bold;">Call Out Report</span>
+</div>
+
+<div style="padding:10px;">
+    <span style="float:right;font-weight:bold;font-size:16px;">Job No. @Model.JobNo</span> 
+</div>
+<table style="width:100% !important;">
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Client's Name</b></td>
+        <td style="width: 80%; padding: 15px;">
+            @Model.ClientName
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Job Address</b></td>
+        <td style="width: 80%; padding: 15px;">
+            @Model.JobAddress
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Contact's Telephone</b></td>
+        <td style="width: 80%; padding: 15px;">
+            @Model.ContactTelephone
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Date</b></td>
+        <td style="width: 80%; padding: 15px;">
+            @(string.Format("{0:MM/dd/yyyy hh:mm tt}", Model.Date))
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Engineer's Telephone</b></td>
+        <td style="width: 80%; padding: 15px;">
+            @Model.EngineerName
+        </td>
+    </tr>
+</table>
+<br />
+<br />
+<table style="width:100% !important">
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;"><b>Details Of Work Carried Out</b></td>
+        <td colspan="3" style="padding: 15px;">
+            @Model.DetailOfWork
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;">Time Arrived</td>
+        <td style="width: 30% !important; padding: 15px;">
+            @Model.ArrivalTime
+        </td>
+        <td style="width: 20%; padding: 15px; background-color: #028072; color: white;">Time Departed</td>
+        <td style="width: 30%; padding: 15px;">
+            @Model.DepartTime
+        </td>
+    </tr>
+</table>

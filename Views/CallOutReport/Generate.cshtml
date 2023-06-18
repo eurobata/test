@@ -1,0 +1,190 @@
+﻿@model TemplateManagementSystem.Models.CallOutReportViewModel
+@{
+    ViewBag.Title = "Call Out Report";
+}
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        border: 1px solid;
+    }
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<div class="row">
+
+
+    <div class="card">
+        <div class="card-body-Templates">
+
+            @using (Html.BeginForm("Index", "CallOutReport", FormMethod.Post, new { }))
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3 class="float-right">Call Out Report</h3>
+                    </div>
+                    <div class="col-md-10 text-right" style="font-size: large;">
+                        Job No.
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.JobNo, new { @class = "form-control" })
+                    </div>
+                </div>
+                @Html.HiddenFor(s => s.Id)
+                <table style="width:100% !important;">
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072;color:white;"><b>Client's Name</b></td>
+                        <td style="width:80%;">
+                            <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.ClientName, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;"><b>Job Address</b></td>
+                        <td style="width:80%;">
+                            <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.JobAddress, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;"><b>Contact's Telephone</b></td>
+                        <td style="width:80%;">
+                            <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.ContactTelephone, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;"><b>Date</b></td>
+                        <td style="width:80%;">
+                            @Html.TextBoxFor(s => s.DateStr, new { @class = "form-control text-box highlighted", @type = "date" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;"><b>Engineer's Name</b></td>
+                        <td style="width:80%;">
+                            <input type="text" class="highlighted text-box" @Html.TextBoxFor(s => s.EngineerName, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                </table> <br /><br />
+                <table style="width:100% !important">
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;"><b>Details Of Work Carried Out</b></td>
+                        <td colspan="3">
+                            <input type="text" class="highlighted text-box" @Html.TextAreaFor(s => s.DetailOfWork, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;">Time Arrived</td>
+                        <td style="width:30% !important;">
+                            @Html.TextBoxFor(s => s.ArrivalTime, new { @class = "form-control text-box highlighted", @type = "time" })
+                        </td>
+                        <td style="width: 20%; padding-left: 15px; background-color: #028072; color: white;">Time Departed</td>
+                        <td style="width: 30%;">
+                            @Html.TextBoxFor(s => s.DepartTime, new { @class = "form-control text-box highlighted", @type = "time" })
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+                        @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                        @if (string.IsNullOrEmpty(ViewBag.pre))
+                        {
+
+                            <button type="submit" class="btn btn-success">Generate</button>
+                            if (Model.Id > 0)
+                            {
+                                <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                            }
+                        }
+
+                            <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+                        </div>
+                </div>
+
+                <!--<div id="emailModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">-->
+
+                        <!-- Modal content-->
+                        <!--<div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Email</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="rowALL">
+                                    <div class="col-md-12">
+                                        Email
+                                        @Html.TextBoxFor(s => s.Email, new { @class = "form-control",  @required = "required", @type = "email" })
+                                    </div>
+                                </div>
+                                <div class="rowALL">
+                                    <div class="col-md-12">
+                                        Subject
+                                        @Html.TextBoxFor(s => s.Subject, new { @class = "form-control" , @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="rowALL">
+                                    <div class="col-md-12">
+                                        CC
+                                        @Html.TextBoxFor(s => s.Cc, new { @class = "form-control", @type = "email" })
+                                    </div>
+                                </div>
+                                <div class="rowALL">
+                                    <div class="col-md-12">
+                                        Body
+                                        @Html.TextAreaFor(s => s.EmailBody, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-success">Generate</button>
+                                @if (Model.Id > 0)
+                                {
+                                    <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                                }
+
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>-->
+                <style>
+                    #mycop {
+                        display: none
+                    }
+                </style>
+                @Html.TextBoxFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+            }
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).on("click", '#mycopy', function () {
+
+            $("#mycop").val("Copy");
+
+        });
+        const textBoxes = document.querySelectorAll(".text-box");
+        textBoxes.forEach(function (textBox) {
+            textBox.addEventListener("input", function () {
+                if (textBox.value === "") {
+                    textBox.classList.add("highlighted");
+                } else {
+                    textBox.classList.remove("highlighted");
+                    textBox.classList.add("form-control");
+                }
+            });
+        });
+
+
+    </script>
+}

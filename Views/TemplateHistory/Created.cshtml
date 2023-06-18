@@ -1,0 +1,287 @@
+﻿
+@model List<TemplateManagementSystem.DAL.FetchTemplateHistory_Result>
+
+@{
+    ViewBag.Title = "Template History";
+}
+
+<div class="card">
+    <div class="cardbody">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive">
+
+                    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Created By</th>
+                                <th>Created Date</th>
+                                <th>Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="mytobdy">
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.ReportType</td>
+                                    <td>@item.CreatedBy</td>
+                                    <td>@(string.Format("{0:MM/dd/yyyy HH:mm}",item.CreatedDate))</td>
+                                    <td>
+                                        @if (item.ReportType == "DailyTimeSheet")
+                                        {
+                                            @*<a title="Preview" href="/DailyTimeSheet/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="DailyTimeSheet" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/DailyTimeSheet/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/DailyTimeSheet/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+                                        }
+                                        else if (item.ReportType == "CallOutReport")
+                                        {
+                                            @*<a title="Preview" href="/CallOutReport/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CallReport" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/CallOutReport/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/CallOutReport/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+                                        }
+                                        else if (item.ReportType == "Template5")
+                                        {
+                                            @*<a title="Preview" href="/Template5/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="Template5" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/Template5/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/Template5/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+                                        }
+                                        else if (item.ReportType == "Pressure Washing Estimate Templete")
+                                        {
+                                            @*<a title="Preview" href="/pressureWashing/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="PressureWashing" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/pressureWashing/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/pressureWashing/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+                                        }
+                                        else if (item.ReportType == "Bussiness Quotes")
+                                        {
+                                            @*<a title="Preview" href="/bussinessQuotes/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="BusinessQuote" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/bussinessQuotes/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/bussinessQuotes/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+                                        }
+
+                                        else if (item.ReportType == "Customer Templete")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/CustomerTemplete/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/CustomerTemplete/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Risk Management Checklist")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/riskmanagement/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/riskmanagement/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "ACQUOTES")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/ACQUOTES/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/ACQUOTES/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Cleaning Checklist")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/CleaningChecklist/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/CleaningChecklist/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Domestic Smoke Alarm")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/domesticsmokeAlarm/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/domesticsmokeAlarm/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Domestic Smoke Alarm II")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/domesticsmokeAlarmii/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/domesticsmokeAlarmii/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Job Completion II")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/jobcompletionii/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/jobcompletionii/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Job Completion")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/jobcompletion/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/jobcompletion/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Covid-19 Pre-Check")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/covid19/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/covid19/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        else if (item.ReportType == "Boiler Service Condition Report")
+                                        {
+                                            @*<a title="Preview" href="/CustomerTemplete/addoredit?id=@item.Id&prev=yes" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></a>*@
+                                            <button title="Preview" data-type="CustomerTemplate" id="btnPreview" data-id="@item.Id" class="btn btn-success btn-sm"><i class="fa fa-eye"></i></button>
+                                            <a title="Edit" href="/boilerservice/Generate?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a title="Download" href="/boilerservice/Download?id=@item.Id" class="btn btn-success btn-sm"><i class="fa fa-download"></i></a>
+
+
+                                        }
+                                        
+                                        <button type="button" class="btn btn-success btn-sm" onclick="setval('@item.Id', '@item.ReportType')">Email</button>
+
+
+                                    </td>
+                                </tr>
+
+
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="opacity:1 !important;">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Preview</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <iframe id="ifPdf" src=""
+                                                    style="width:100%;height:400px"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="emailModal" class="modal fade" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="opacity:1 !important;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Email</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body" id="dvEmailContent">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+
+    <script>
+function setval(id, type) {
+            $("#id").val(id);
+            $("#templete").val(type);
+            $.ajax({
+                url: "/TemplateHistory/FetchEmail",
+                type: "Get",
+                data: { id: id, type: type },
+                success: function (result) {
+                    $("#dvEmailContent").html(result);
+                    $("#emailModal").modal("show");
+
+                }
+
+            });
+
+}
+
+$(document).on("click", "#btnPreview", function () {
+            var id = $(this).attr("data-id");
+            var type = $(this).attr("data-type");
+            //window.open("/Reports/8a6bfa7b-5f16-41a2-9d31-ac0a89eb0898.pdf", "_blank");
+            $("#pdfModal").modal("show");
+            $("#previewModal").modal("show");
+            $.ajax({
+                url: "/TemplateHistory/FetchFile",
+                type: "Get",
+                data: { id: id, type: type },
+                success: function (result) {
+                    $("#ifPdf").attr("src", "/Reports/" + result);
+                    $("#previewModal").modal("show");
+                }
+            });
+});
+
+function myFunction() {
+
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("mytobdy");
+            li = ul.getElementsByTagName('tr');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i];
+                txtValue = a.innerText;
+                if (txtValue.toUpperCase().addoreditOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+
+                }
+            }
+}
+
+$(function () {
+            $("#temphis").addClass("myactive");
+});
+    </script>
+
+}
+
+

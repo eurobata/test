@@ -1,0 +1,396 @@
+﻿@using TemplateManagementSystem.BLL;
+@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="msapplication-TileColor" content="#0f75ff">
+    <meta name="theme-color" content="#9d37f6">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <title>@ViewBag.Title - Template Management System</title>
+    <!--Bootstrap-->
+
+    <link href="~/assets/plugins/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/fonts/fonts/font-awesome.min.css" rel="stylesheet" />
+    <!--Dashboard-->
+    <link href="~/assets/css/dashboard.css" rel="stylesheet" />
+    <link href="~/assets/css/admin-custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <!--SidemenuCss-->
+    <link href="~/assets/plugins/toggle-sidebar/sidemenu.css" rel="stylesheet" />
+
+    <!--Scrollbar css-->
+    <link href="~/assets/plugins/scroll-bar/jquery.mCustomScrollbar.css" rel="stylesheet" />
+
+    <link href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <!--FontIcons-->
+    <link href="~/assets/css/icons.css" rel="stylesheet" />
+    <link href="~/assets/plugins/iconfonts/icons.css" rel="stylesheet" />
+
+    @* @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+    <style>
+        .myactive {
+            color: green;
+            font-weight: bolder;
+            border-bottom: 1px solid;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+            .topnav a {
+                float: left;
+                display: block;
+                color: #f2f2f2;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+                font-size: 17px;
+            }
+
+                .topnav a:hover {
+                    background-color: #ddd;
+                    color: black;
+                }
+
+                .topnav a.active {
+                    background-color: #04AA6D;
+                    color: white;
+                }
+
+            .topnav .icon {
+                display: none;
+            }
+
+        @@media screen and (max-width: 600px) {
+            .topnav a:not(:first-child) {
+                display: none;
+            }
+
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+        }
+
+        @@media screen and (max-width: 600px) {
+            .topnav.responsive {
+                position: relative;
+            }
+
+                .topnav.responsive .icon {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+
+                .topnav.responsive a {
+                    float: none;
+                    display: block;
+                    text-align: left;
+                }
+        }
+
+        /*.taskbaritems {
+            padding: 0px 40px 0px 0px;
+        }*/
+    </style>
+
+    @{ 
+
+        var categories = new CategoryLogic().GetCategories();
+    }
+</head>
+<body class="app sidebar-mini">
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>*@
+
+    <div class="page">
+
+        <div class="page-main">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">
+                    <img src="../assets/images/brand/yourformz.png" class="header-brand-img" alt="YourFormz logo">
+
+                </a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background:none">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a href="/" class="slide-item" id="alltemp">All Templates</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/Favourites/List" class="slide-item" id="fv">Favourites</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/TemplateHistory/Created" class="slide-item" id="temphis">Template History</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <input type="text" id="myInput" onkeyup="myFunction()" class="form-control" placeholder="Search Templete">
+
+                        </li>
+                        <li class="nav-item taskbaritems">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle filter-button" type="button" data-toggle="dropdown" style="background-color: lightgrey;">
+                                    Categories <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    @*<li><a href="#all" id="catall" onclick="myFunctions('','catall')">All Categories</a></li>
+                    <li><a href="#test" id="cattest" onclick="myFunctions('test','cattest')">Used more regular</a></li>
+                    <li><a href="#beta" id="catbeta" onclick="myFunctions('beta','catbeta')">Used ocassionally</a></li>*@
+                                    <li><a id="catall" onclick="myFunctions('','catall')">All Categories</a></li>
+                                    @foreach (var item in categories)
+                                    {
+                                        <li><a id="cattest" onclick="myFunctions('@item.Name','@item.Name')">@item.Name</a></li>
+                                    }
+                                    @*<li><a id="cattest" onclick="myFunctions('test','cattest')">Used more regular</a></li>
+                    <li><a id="catbeta" onclick="myFunctions('beta','catbeta')">Used ocassionally</a></li>*@
+                                </ul>
+                            </div>
+                        </li>
+                        @if (User.Identity.GetUserId() == System.Configuration.ConfigurationManager.AppSettings["adminId"])
+                        {
+                            <li class="nav-item taskbaritems">
+                                <a href="/Category/Index" class="slide-item" id="category">Manage Categories</a>
+                            </li>
+                        }
+
+                        <li class="nav-item taskbaritems">
+                        </li>
+                        <li class="nav-item taskbaritems">
+                        </li>
+                        <li class="nav-item taskbaritems">
+                        </li>
+                        <li class="nav-item taskbaritems">
+                        </li>
+                        <li class="nav-item taskbaritems">
+                            <div class="dropdown">
+                                <button class="btn btn-default filter-button" type="button" data-toggle="dropdown">
+                                    <img src="~/assets/images/question.png" style="width: 20px;"><span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu Support-dropdown" style="left:-100px !important;">
+                                    <li onclick="openNewTab1()">Support Request</li>
+                                    <li onclick="openNewTab2()">Custom Form Request</li>
+                                </ul>
+                            </div>
+                        </li>
+                        @*<li class="nav-item taskbaritems">
+                        </li>
+                        <li class="nav-item taskbaritems">
+                        </li>*@
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0" style="margin-right:1rem">
+                        <div class="d-flex order-lg-2 ml-auto">
+
+                            <div class="dropdown ">
+                                <a href="#" class="nav-link pr-0 leading-none user-img" data-toggle="dropdown">
+                                    <img src="@(new Common().FetchProfilePicture(User.Identity.GetUserId()))" class="avatar-md brround">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow ">
+                                    <a class="dropdown-item" href="../Profile/EditProfile">
+                                        <i class="dropdown-icon icon icon-user"></i> My Profile
+                                    </a>
+
+                                    @if (User.Identity.GetUserId() == System.Configuration.ConfigurationManager.AppSettings["adminId"])
+                                    {
+                                        <a class="dropdown-item" href="../subscriptions/index">
+                                            <i class="dropdown-icon icon icon-user"></i> Subscriptions
+                                        </a>
+                                    }
+
+
+                                    <a class="dropdown-item" href="../Manage/ChangePassword">
+                                        <i class="dropdown-icon  icon icon-settings"></i> Change password
+                                    </a>
+                                    <a class="dropdown-item" href="/Account/LogOff">
+                                        <i class="dropdown-icon icon icon-power"></i> Log out
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+
+            @*<aside class="app-sidebar doc-sidebar">
+                  @*<div class="dropdown user-pro-body">
+                <div class="app-sidebar__user clearfix">
+                        @*<div>
+                            <img src="../assets/images/faces/male/25.jpg" alt="user-img" class="avatar avatar-lg brround">
+                            <a href="editprofile.html" class="profile-img">
+                                <span class="fa fa-pencil" aria-hidden="true"></span>
+                            </a>
+                        </div>
+                        <div class="user-info">
+                            <h2>YourFormz</h2>
+                            <span>Information</span>
+                        </div>
+                </div>
+                    </div>*@
+            @*<ul class="side-menu">
+
+                        <li class="slide">
+                            <a class="side-menu__item" data-toggle="slide" href="/Profile/ShowProfile"><i class="side-menu__icon fa fa-user"></i><span class="side-menu__label">Profile</span><i class="angle fa fa-angle-right"></i></a>
+                            <ul class="slide-menu">
+                                <li><a class="slide-item" href="/Profile/ShowProfile">Show Profile</a></li>
+                                <li><a class="slide-item" href="/Profile/EditProfile">Edit Profile</a></li>
+                                <li><a class="slide-item" href="/Manage/ChangePassword">Change Password</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-file"></i><span class="side-menu__label">Templates</span><i class="angle fa fa-angle-right"></i></a>
+                            <ul class="slide-menu">
+                                <li><a class="slide-item" href="/DailyTimeSheet/Index">Daily Time Sheet</a></li>
+                                <li><a class="slide-item" href="/CallOutReport/Index">Call Out Report</a></li>
+                                <li><a class="slide-item" href="/Template5/Index">Template 5</a></li>
+                            </ul>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-toggle="slide" href="#"><i class="side-menu__icon fa fa-history"></i><span class="side-menu__label">Template History</span><i class="angle fa fa-angle-right"></i></a>
+                            <ul class="slide-menu">
+                                <li>
+                                    <a href="/TemplateHistory/Index" class="slide-item">Template History</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="app-sidebar-footer">
+                        <a href="emailservices.html">
+                            <span class="fa fa-envelope" aria-hidden="true"></span>
+                        </a>
+                        <a href="profile.html">
+                            <span class="fa fa-user" aria-hidden="true"></span>
+                        </a>
+                        <a href="editprofile.html">
+                            <span class="fa fa-cog" aria-hidden="true"></span>
+                        </a>
+                        <a href="login.html">
+                            <span class="fa fa-sign-in" aria-hidden="true"></span>
+                        </a>
+                        <a href="chat.html">
+                            <span class="fa fa-comment" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                </aside>*@
+            @*<div class="app-content my-3 my-md-5">
+                    <div class="side-app">
+                        <div class="page-header">
+                            <h4 class="page-title">@ViewBag.Title</h4>
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">@ViewBag.Title</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>*@
+            @RenderBody()
+
+        </div>
+        <!--<footer class="footer">
+            <div class="container">
+                <div class="row align-items-center flex-row-reverse">
+                    <div class="col-md-12 col-sm-12 mt-3 mt-lg-0 text-center">
+                        Copyright © 2022. Designed by <a href="#">Agile Tech Studio</a> All rights reserved.
+                    </div>
+                </div>
+            </div>
+        </footer>-->
+    </div>
+
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+        function myFunctions(str, cat) {
+            $("#catall").css("color", "black");
+            $("#cattest").css("color", "black");
+            $("#catbeta").css("color", "black");
+
+            $("#" + cat + "").css("color", "green");
+            $("#myInput").val(str);
+            $("#myInput").keyup();
+        }
+        function openNewTab1() {
+            window.open('/', 'Support Request');
+        }
+        function openNewTab2() {
+            window.open('/', 'Custom Form Request');
+        }
+    </script>
+    <!--BackToTop-->
+    <a href="#top" id="back-to-top"><i class="fa fa-rocket"></i></a>
+    <!--DashboardCore-->
+    <script src="~/assets/js/vendors/jquery-3.2.1.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/plugins/bootstrap-4.3.1-dist/js/popper.min.js"></script>
+
+    <script src="~/assets/js/vendors/jquery.sparkline.min.js"></script>
+    <script src="~/assets/js/vendors/selectize.min.js"></script>
+    <script src="~/assets/js/vendors/jquery.tablesorter.min.js"></script>
+    <script src="~/assets/js/vendors/circle-progress.min.js"></script>
+    <script src="~/assets/plugins/rating/jquery.rating-stars.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <!--FullSideMenuJs-->
+    <script src="~/assets/plugins/toggle-sidebar/sidemenu.js"></script>
+
+    <!--Chart Js Charts-->
+    @*<script src="~/assets/plugins/chart/Chart.bundle.js"></script>
+        <script src="~/assets/plugins/chart/utils.js"></script>*@
+
+    <!--CustomScrollBarJs-->
+    <script src="~/assets/plugins/scroll-bar/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <!--EchartsPlugins-->
+    @*<script src="~/assets/plugins/echarts/echarts.js"></script>
+        <script src="~/assets/js/index1.js"></script>*@
+
+    <!--CustomJs-->
+    <script src="~/assets/js/admin-custom.js"></script>
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+
+
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

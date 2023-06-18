@@ -1,0 +1,25 @@
+﻿@model TemplateManagementSystem.Models.CategoryViewModel
+@using (Html.BeginForm("AddEditCategory", "Category", FormMethod.Post, new { @id="frmAddEditCategory"}))
+{
+    <div class="row mb-3">
+        <div class="col-md-12">
+            @Html.HiddenFor(s => s.Id)
+            Category Name
+            @Html.TextBoxFor(s => s.CategoryName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CategoryName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="modal-footer">
+        @if (Model.Id > 0)
+        {
+            <input type="submit" class="btn btn-success" name="name" value="Update" />
+        }
+        else
+        {
+            <input type="submit" class="btn btn-success" name="name" value="Save" />
+        }
+
+        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+    </div>
+    
+}

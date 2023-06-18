@@ -1,0 +1,441 @@
+﻿@{
+    ViewBag.Title = "Covid-19 Pre check";
+}
+@model TemplateManagementSystem.Models.covid19
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table, th, td {
+        padding: 2px;
+        border: 1px solid;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+<style>
+    .rows {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cols-md-4 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-6 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-8 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-12 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-2 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    .cols-md-10 {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+
+    @@media (min-width: 768px) {
+        .cols-md-4 {
+            flex: 0 0 33.33333%;
+            max-width: 33.33333%;
+        }
+
+        .cols-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+
+        .cols-md-8 {
+            flex: 0 0 66%;
+            max-width: 66%;
+        }
+
+        .cols-md-12 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .cols-md-2 {
+            flex: 0 0 13%;
+            max-width: 13%;
+        }
+
+        .cols-md-10 {
+            flex: 0 0 85%;
+            max-width: 85%;
+        }
+    }
+    .displayNone {
+        display: none !important;
+    }
+
+    .highlighted {
+        border: 2px solid #FFCCCB;
+    }
+</style>
+
+<div class="card" style="padding-left:7rem;padding-right:7rem">
+    @using (Html.BeginForm("Index", "covid19", FormMethod.Post, new { }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(s => s.Id)
+        @Html.HiddenFor(s => s.logo)
+
+
+        <br />
+        <br />
+        <div class="rows">
+            <div class="cols-md-6">
+                @if (string.IsNullOrEmpty(Model.logo))
+                {
+                    <img src="~/assets/images/defaultimage.png" width="200" height="100" />
+
+                }
+                else
+                {
+                    <img src="~/pics/@Model.logo" width="200" height="100" />
+
+                }
+
+            </div>
+            <div class="cols-md-6" style="text-align:right">
+
+                <p>@Model.locationLin1 ,@Model.city, @Model.state</p>
+                <p>@Model.postcode</p>
+                <p><span style="font-weight:bolder">PH</span>: @Model.phone</p>
+                <p><span style="font-weight:bolder">Email</span>: @Model.email</p>
+            </div>
+
+        </div>
+        <div style="text-align:center">
+            <br />
+
+            <h2 style="font-weight:bolder">Covid-19 Pre-Check</h2>
+
+        </div>
+        <div class="rows">
+            <div class="cols-md-2" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Job Address</span>
+            </div>
+            <div class="cols-md-10">
+                @Html.TextBoxFor(s => s.jobAddress, new { @class = "form-control sm", @type = "text" })
+
+            </div>
+
+        </div>
+
+        <div class="rows">
+            <div class="cols-md-2" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Date</span>
+            </div>
+            <div class="cols-md-10">
+                @Html.TextBoxFor(s => s.datestr, new { @class = "form-control sm", @type = "date" })
+
+            </div>
+
+        </div>
+
+        <div class="rows">
+            <div class="cols-md-2" style="padding-top:0.5rem">
+
+                <span style="font-weight:bold;padding-top:1rem">Job Number</span>
+            </div>
+            <div class="cols-md-10">
+                @Html.TextBoxFor(s => s.jobnumber, new { @class = "form-control sm", @type = "text" })
+
+            </div>
+
+        </div>
+        <br />
+        <div class="rows cols-md-12">
+            <h4 style="font-weight:bolder">Covid-19 Pre-Check</h4>
+
+
+        </div>
+        <br />
+        <div class="rows cols-md-12">
+
+            <p>I <input type="text" value="@Model.firstName" name="firstName" placeholder="Job Contact First" />  <input type="text" placeholder="Job Contact Last" value="@Model.lastname" name="lastname" />  confirms that no person on the premises  </p>
+
+        </div>
+        <style>
+            ol.a {
+                list-style-type: square;
+            }
+        </style>
+        <div class="rows cols-md-12">
+
+            <div style="padding:1rem">
+                <ol class="a">
+                    <li>Has COVID-19 Currently.</li>
+                    <li>Has tested positive for covid-19 in the past and have not been medicaly cleared as no longer carying the virus.</li>
+                    <li>Has Travelled internationally within last 14 days.</li>
+                    <li>Has visited a declared covid-19 hot spot within the last 14 days.</li>
+                    <li>Has been in close contact with a person who has tested positive for covid-19 in the past 14 days.</li>
+                    <li>Is currently unwell or has experienced covid-19 symptoms including fever,cough,sore throat,congestion,shortness of breath, and/or loss of smell/taste in thr last 14 days, and</li>
+                    <li>Is currently awarding the result of a covid-19 test</li>
+
+                </ol>
+            </div>
+        </div>
+        <div class="rows cols-md-12">
+            <p>
+                <b>Signed</b>
+            </p>
+
+        </div>
+        <div class="rows cols-md-12">
+            @Html.HiddenFor(s => s.sign, new { @id = "hdfApprovedBy" })
+
+
+            <img src="@Model.sign" height="50" id="imgApprovedBy" class="@(string.IsNullOrEmpty(Model.sign) ? "displayNone" :"")" />
+            <br />
+
+
+        </div>
+        <div class="rows cols-md-12">
+
+            <p id="pSignature" style="margin-bottom: 10px; line-height: 0.5; font-size: 18px; color: red;" data-toggle="modal" data-target="#signModel">[...................................................]</p>
+
+        </div>
+
+        <div class="rows cols-md-12">
+
+            <p>For and on Behalf of </p>
+        </div>
+
+        <div class="rows cols-md-12">
+
+            <input type="text" name="firstName" value="@Model.firstName" placeholder="Job Contact First" /> <input placeholder="Job Contact last" value="@Model.lastname" type="text" name="lastname" />
+
+        </div>
+        <div class="rows">
+            <div class="cols-md-1" style="padding-top:0.4rem">
+                &nbsp;&nbsp;&nbsp;   Date:
+            </div>
+            <div class="cols-md-4">
+                @Html.TextBoxFor(s => s.datestr2, new { @class = "form-control sm", @type = "date" })
+
+            </div>
+
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <hr />
+
+        <div class="rows">
+
+            <div class="cols-md-4">
+                Ph: @Model.phone
+            </div>
+            <div class="cols-md-4">
+                Fax: @Model.locationLin1
+            </div>
+            <div class="cols-md-4">
+                Email: @Model.email
+            </div>
+
+        </div>
+
+        <div class="row" style="margin:1rem">
+            <div class="col-md-12">
+                @if (string.IsNullOrEmpty(ViewBag.pre))
+                {
+                    @*<button type="button" class="btn btn-success" data-toggle="modal" data-target="#emailModal">Generate with Email</button>*@
+                    <button type="submit" class="btn btn-success">Generate</button>
+
+                    if (Model.Id > 0)
+                    {
+                        @Html.HiddenFor(s => s.type, new { @class = "form-control", @id = "mycop" })
+
+                        <button type="submit" id="mycopy" class="btn btn-success">Make a Copy</button>
+                    }
+
+                }
+
+                <a href="/" class="btn btn-default" style="background-color: #ff615e;">Cancel</a>
+            </div>
+        </div>
+
+    }
+
+</div>
+     
+   <div id="signModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+
+                Modal content
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Signature</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <div class="rowALL">
+                            <div class="col-md-12">
+                                <input type="hidden" id="hdfImageType" value="" />
+                                <canvas id="approvedBy" height="100" width="460" style="border: 1px solid black;"></canvas>
+                            </div>
+                            <div class="col-md-12">
+                                <span id="spAgreement" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnClearSignature" class="btn btn-primary">Clear</button>
+                        <button type="button" id="btnSign" class="btn btn-primary">Accept</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        @section scripts{
+
+            <script type="text/javascript">
+
+                $(document).on("click", '#mycopy', function () {
+
+                    $("#mycop").val("Copy");
+
+                });
+            </script>
+
+            <script src="~/Scripts/signature_pad.min.js"></script>
+            <script type="text/javascript">
+                $(document).on("click", "#pSignature", function () {
+
+
+                    $("#hdfImageType").val("Approved By");
+
+
+                    $("#signModel").modal("show");
+                });
+
+                $(document).on("click", "#pCompletedBy", function () {
+                    $("#hdfImageType").val("Completed By");
+                    $("#signModel").modal("show");
+                });
+
+                $(document).ready(function () {
+                    var approvedBy = document.querySelector('#approvedBy');
+                    var padApproved = new SignaturePad(approvedBy);
+
+                    $('#btnSign').click(function (e) {
+                        debugger;
+                        var imageType = $("#hdfImageType").val();
+                        var approveByData = padApproved.toDataURL();
+                        padApproved.off();
+
+
+                        var valid = "Yes";
+                        if (isCanvasBlank(approvedBy)) {
+                            $("#spAgreement").text("Please add signature for " + imageType + ".");
+                            valid = "No";
+                        }
+                        else {
+                            $("#spAgreement").text("");
+                        }
+
+                        if (valid == "No") {
+                            e.preventDefault();
+                        }
+                        else {
+                            $("#signModel").modal("hide");
+                            if (imageType == "Approved By") {
+                                $("#hdfApprovedBy").val(approveByData);
+                                $("#imgApprovedBy").attr("src", approveByData);
+                                $("#imgApprovedBy").removeClass("displayNone");
+                            }
+                            if (imageType == "Completed By") {
+                                $("#hdfFormCompletedBy").val(approveByData);
+                                $("#imgCompletedBy").attr("src", approveByData);
+                                $("#imgCompletedBy").removeClass("displayNone");
+                            }
+
+                            approvedBy = document.querySelector('#approvedBy');
+                            padApproved = new SignaturePad(approvedBy);
+                        }
+                    });
+                    function isCanvasBlank(canvass) {
+                        const context = canvass.getContext('2d');
+
+                        const pixelBuffer = new Uint32Array(
+                            context.getImageData(0, 0, canvass.width, canvass.height).data.buffer
+                        );
+
+                        return !pixelBuffer.some(color => color !== 0);
+                    }
+
+                    $(document).on("click", "#btnClearSignature", function () {
+                        var canvas = document.querySelector('#approvedBy');
+                        const context = canvas.getContext('2d');
+                        context.clearRect(0, 0, canvas.width, canvas.height);
+                        padApproved = new SignaturePad(canvas);
+                    });
+                });
+                const textBoxes = document.querySelectorAll(".text-box");
+                textBoxes.forEach(function (textBox) {
+                    textBox.addEventListener("input", function () {
+                        if (textBox.value === "") {
+                            textBox.classList.add("highlighted");
+                        } else {
+                            textBox.classList.remove("highlighted");
+                            textBox.classList.add("form-control");
+                        }
+                    });
+                });
+
+
+            </script>
+        }

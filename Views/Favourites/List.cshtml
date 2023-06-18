@@ -1,0 +1,290 @@
+﻿@model List<TemplateManagementSystem.DAL.Favourite>
+@{
+    ViewBag.Title = "Favourites";
+}
+<style>
+    .HeartAnimation {
+        padding-top: 0.8em;
+        background-repeat: no-repeat;
+        background-size: 2900%;
+        background-position: left;
+        height: 45px;
+        width: 170px;
+        margin: 20px auto;
+        cursor: pointer;
+        background-color: green;
+        font-weight: bolder;
+        color: white;
+        margin-bottom: 1rem;
+        border-radius: 10px;
+    }
+
+        .HeartAnimation::after {
+            content: "FAVOURITE";
+        }
+
+
+    .animate {
+        animation: heart-burst .8s steps(28) forwards;
+        background-color: #800080;
+    }
+
+        .animate::after {
+            content: "UNFAVOURITE";
+            font-weight: bolder;
+            color: white;
+        }
+
+        .animate ~ .HeartAnimation::after {
+            content: "";
+            background-color: red;
+        }
+
+
+
+    @@keyframes heart-burst {
+        0% {
+            background-position: left
+        }
+
+        100% {
+            background-position: right
+        }
+    }
+
+
+    a {
+        color: black;
+    }
+
+    .break {
+        text-align: center;
+    }
+</style>
+<div class="card">
+    <div class="cardbody">
+        <div class="row item-all-cat" id="myul">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-md-4">
+                    <div class="item-all-card bg-purple text-center">
+                        <a href="@(item.TemplateType == "Template 5" ? "/Template5/Generate" : item.TemplateType == "Daily Time Sheet" ? "/DailyTimeSheet/Generate" : item.TemplateType == "Call Out Report" ? "/CallOutReport/Generate"  : item.TemplateType=="Pressure Washing"?"/pressurewashing/Generate":item.TemplateType=="Customer Templete"?"/customertemplete/Generate":item.TemplateType=="Risk Management Checklist"?"/riskManagement/generate":item.TemplateType=="AC Quote Form"?"/acquote/Generate":item.TemplateType=="Domestic Smoke Alarm"?"/domesticSmokeAlarm/Generate":item.TemplateType=="Domestic Smoke Alarm II"?"/domesticSmokeAlarmII/Generate":item.TemplateType=="Boiler Service Condition"?"/boilerService/Generate":item.TemplateType=="COVID-19 Pre-Check Form"?"/covid19/Generate":item.TemplateType=="Job Completion Report II"?"/jobcompletionii/Generate":item.TemplateType=="Job Completion Report"?"/jobcompletion/Generate":item.TemplateType=="Cleaning Checklist"?"/cleaningchecklist/Generate":"")"></a>
+                        <div class="item-all-text mt-4">
+                            @if (item.TemplateType == "Template 5")
+                            {
+
+                                <p>@item.TemplateType <span style="display:none">beta</span> </p>
+
+                            }
+                            else
+                            {
+                                <p>@item.TemplateType <span style="display:none">test</span> </p>
+
+                            }
+                        </div>
+                        <div class="iteam-all-icon">
+                            <img src="~/assets/images/svg/mail.svg" alt="email" class="w-30">
+                        </div>
+
+                    </div>
+                    <div class="text-center" style="width: 260px; margin-top: -10px;">
+                        @if (item.TemplateType == "Call Out Report")
+                        {
+                            <div class="HeartAnimation" id="dvCallOutReport" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Template 5")
+                        {
+
+
+                            <div class="HeartAnimation" id="dvTemplate5" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Pressure Washing")
+                        {
+
+
+                            <div class="HeartAnimation" id="dvTemp4" title="Add To Favourite"></div>
+
+                        }
+
+                        else if (item.TemplateType == "Bussiness Quote")
+                        {
+
+
+                            <div class="HeartAnimation" id="dvTemp5" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Customer Templete")
+                        {
+
+
+                            <div class="HeartAnimation" id="dvTemp6" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Daily Time Sheet")
+                        {
+
+
+                            <div class="HeartAnimation" id="dvDailyTimeSheet" title="Add To Favourite"></div>
+
+
+                        }
+                        else if (item.TemplateType == "Risk Management Checklist")
+                        {<div class="HeartAnimation" id="dvTemp7" title="Add To Favourite"></div>
+
+
+                        }
+                        else if (item.TemplateType == "AC Quote Form")
+                        {
+                            <div class="HeartAnimation" id="dvTemp8" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Domestic Smoke Alarm")
+                        {
+                            <div class="HeartAnimation" id="dvTemp9" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Domestic Smoke Alarm II")
+                        {
+                            <div class="HeartAnimation" id="dvTemp10" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Boiler Service Condition")
+                        {
+                            <div class="HeartAnimation" id="dvTemp11" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "COVID-19 Pre-Check Form")
+                        {
+                            <div class="HeartAnimation" id="dvTemp12" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Job Completion Report II")
+                        {
+                            <div class="HeartAnimation" id="dvTemp13" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Job Completion Report")
+                        {
+                            <div class="HeartAnimation" id="dvTemp14" title="Add To Favourite"></div>
+
+                        }
+                        else if (item.TemplateType == "Cleaning Checklist")
+                        {
+                            <div class="HeartAnimation" id="dvTemp15" title="Add To Favourite"></div>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+        function myFunction() {
+
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myul");
+            li = ul.getElementsByClassName('col-lg-3');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("p")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().addoreditOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+
+                }
+            }
+        }
+
+        $(function () {
+            $("#fv").addClass("myactive");
+
+            $(".HeartAnimation").addClass("animate");
+
+            //var favs = JSON.parse($("#hdfFavourites").val());
+
+            //if (favs.length > 0) {
+            //    for (var i = 0; i < favs.length; i++) {
+            //        if (favs[i].TemplateType == "Daily Time Sheet") {
+            //            $(".HeartAnimation").addClass("animate");
+            //        }
+            //        else if (favs[i].TemplateType == "Call Out Report") {
+            //            $("#dvCallOutReport").addClass("animate");
+            //        }
+            //        else if (favs[i].TemplateType == "Template 5") {
+            //            $("#dvTemplate5").addClass("animate");
+            //        }
+            //    }
+            //}
+
+
+            $(".HeartAnimation").click(function () {
+                $(this).toggleClass("animate");
+                var id = $(this).attr("id");
+                var param = "";
+                if (id == "dvCallOutReport")
+                    param = "Call Out Report";
+                else if (id == "dvTemplate5")
+                    param = "Template 5";
+                else if (id == "dvDailyTimeSheet")
+                    param = "Daily Time Sheet";
+                else if (id == "dvTemp4")
+                    param = "Pressure Washing";
+                else if (id == "dvTemp5")
+                    param = "Bussiness Quote";
+                else if (id == "dvTemp6")
+                    param = "Customer Templete";
+                else if (id == "dvTemp7")
+                    param = "Risk Management Checklist";
+                else if (id == "dvTemp8")
+                    param = "AC Quote Form";
+                else if (id == "dvTemp9")
+                    param = "Domestic Smoke Alarm";
+                else if (id == "dvTemp10")
+                    param = "Domestic Smoke Alarm II";
+                else if (id == "dvTemp11")
+                    param = "Boiler Service Condition";
+                else if (id == "dvTemp12")
+                    param = "COVID-19 Pre-Check Form";
+                else if (id == "dvTemp13")
+                    param = "Job Completion Report II";
+                else if (id == "dvTemp14")
+                    param = "Job Completion Report";
+                else if (id == "dvTemp15")
+                    param = "Cleaning Checklist";
+
+                var toggle = "";
+                if ($(this).hasClass("animate")) {
+                    toggle = "Yes";
+                }
+                else {
+                    toggle = "No";
+                }
+                $.ajax({
+                    url: "/Home/AddToFavourite",
+                    type: "Post",
+                    data: { templateType: param, add: toggle },
+                    success: function (result) {
+
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    }
